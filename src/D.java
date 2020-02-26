@@ -28,14 +28,56 @@ public class D {
             }
         }
 
-        
+        void bfs(){
+            Queue<Integer> queue = new ArrayDeque<>();
+            Map<Integer,Integer> dist = new HashMap<>();
+            Map<Integer,Integer> parent = new HashMap<>();
+            boolean[] visited = new boolean[vertices+1];
+            queue.add(1);
+            visited[1] = true;
+            parent.put(1,1);
+            dist.put(1,0);
+            int min = Integer.MAX_VALUE;
+            ArrayList<Integer> list = new ArrayList<>();
+
+            while (queue.size()>0){
+                int v = queue.poll();
+                Iterator<Integer> iterator = edge.get(v).listIterator();
+                while (iterator.hasNext()){
+                    int n = iterator.next();
+                    if(!visited[n]){
+                        queue.add(n);
+                        visited[n] = true;
+                        parent.put(n,v);
+                        dist.put(n,dist.get(v)+1);
+                    }
+                }
+            }
+
+            list.add(vertices);
+            int n = vertices;
+            while (parent.get(n)!=1){
+                list.add(parent.get(n));
+                n = parent.get(n);
+            }
+            list.add(1);
+
+            System.out.println(list);
+            //System.out.println(dist);
+            System.out.println(dist.get(vertices));
+
+        }
+
+
 
 
 
 
     }
+
     static BufferedReader inp = new BufferedReader(new InputStreamReader(System.in));
     static BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
+
     public static void main(String[] args) throws IOException {
 
         String[] s1 = inp.readLine().split(" ");
