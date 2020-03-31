@@ -75,14 +75,18 @@ public class D {
                 }
             }
 
-            int min = distStart.get(vertices);
+            int dist = distStart.get(vertices);
             System.out.println(distLast);
             System.out.println(distStart);
+            int max = 0;
             for(int i=1;i<=vertices;i++){
-                min = Math.min(min,Math.abs(distLast.get(i)-distStart.get(i)));
+               int a =(distLast.get(i)-distStart.get(i));
+               if(a+1<=dist){
+                   max = Math.max(max,a);
+               }
             }
 
-            System.out.println(min);
+            System.out.println(max);
 
         }
 

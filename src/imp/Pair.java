@@ -39,6 +39,9 @@ class Pair<U extends Comparable<U>, V extends Comparable<V>>
     // This Overriding used to compare two pairs on the basis of first element
     @Override
     public int compareTo(Pair<U, V> o) {
+        if(this.a.equals(o.a)){
+            return getV().compareTo(o.getV());
+        }
         return getU().compareTo(o.getU());
     }
 

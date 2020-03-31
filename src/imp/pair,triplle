@@ -89,6 +89,9 @@ static class Pair<U extends Comparable<U>, V extends Comparable<V>>
 
     @Override
     public int compareTo(Pair<U, V> o) {
+        if(this.a.equals(o.a)){
+                    return getV().compareTo(o.getV());
+                }
         return getU().compareTo(o.getU());
     }
     private U getU() {
