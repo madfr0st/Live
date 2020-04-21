@@ -1,0 +1,46 @@
+static class FastReader {
+
+    BufferedReader inp;
+    StringTokenizer st;
+
+    public FastReader() {
+        inp = new BufferedReader(new
+                InputStreamReader(System.in));
+    }
+
+    String next() {
+        while (st == null || !st.hasMoreElements()) {
+            try {
+                st = new StringTokenizer(inp.readLine());
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return st.nextToken();
+    }
+
+    int nextInt() {
+        return Integer.parseInt(next());
+    }
+
+    long nextLong() {
+        return Long.parseLong(next());
+    }
+
+    double nextDouble() {
+        return Double.parseDouble(next());
+    }
+
+    String nextLine() {
+        String str = "";
+        try{
+            str = inp.readLine();
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+        return str;
+    }
+}
+

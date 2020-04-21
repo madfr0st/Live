@@ -1,44 +1,44 @@
 package imp;
 
-public class SegmentTree {
+public class SegTreeLong {
 
     /**
-     * Provides interface to perform operations on range queue like sum, min or max
+     * Provides longerface to perform operations on range queue like sum, min or max
      */
 
     interface Operation{
-        int perform(int a, int b);
+        long perform(long a, long b);
     }
 
     static class SumOperation implements Operation {
         @Override
-        public int perform(int a, int b) {
+        public long perform(long a, long b) {
             return a+b;
         }
     }
 
     static class MinOperation implements Operation {
         @Override
-        public int perform(int a, int b){
+        public long perform(long a, long b){
             return Math.min(a,b);
         }
     }
 
     static class MaxOperation implements Operation {
         @Override
-        public int perform(int a, int b){
+        public long perform(long a, long b){
             return Math.max(a,b);
         }
     }
 
-    public int[] createTree(int[] input, Operation operation){
-        int height = (int)Math.ceil(Math.log(input.length)/Math.log(2));
-        int[] segmentTree = new int[(int)(Math.pow(2, height+1)-1)];
+    public long[] createTree(long[] input, Operation operation){
+        long height = (long)Math.ceil(Math.log(input.length)/Math.log(2));
+        long[] segmentTree = new long[(int)(Math.pow(2, height+1)-1)];
         createTreeUtil(segmentTree,input,0,input.length-1,0, operation);
         return segmentTree;
     }
 
-    private void createTreeUtil(int[] segmentTree, int[] input, int low, int high,int pos, Operation operation){
+    private void createTreeUtil(long[] segmentTree, long[] input, int low, int high,int pos, Operation operation){
         if(low == high){
             segmentTree[pos] = input[low];
             return;
@@ -53,11 +53,11 @@ public class SegmentTree {
      *RangeQuery segment tree for certain range (when not applied with lazy)
      */
 
-    public int rangeQuery(int []segmentTree,int qlow,int qhigh,int len, Operation operation){
+    public long rangeQuery(long []segmentTree,long qlow,long qhigh,int len, Operation operation){
         return rangeQueryUtil(segmentTree,0,len-1,qlow-1,qhigh-1,0, operation);
     }
 
-    private int rangeQueryUtil(int[] segmentTree,int low,int high,int qlow,int qhigh,int pos, Operation operation){
+    private long rangeQueryUtil(long[] segmentTree,int low,int high,long qlow,long qhigh,int pos, Operation operation){
         if(qlow <= low && qhigh >= high){
             return segmentTree[pos];
         }
@@ -72,12 +72,12 @@ public class SegmentTree {
     /**
      * Updates segment tree for certain index by given delta
      */
-    public void deltaUpdateSegmentTree(int[] input, int[] segmentTree, int index, int delta, Operation operation){
+    public void deltaUpdateSegTree(long[] input, long[] segmentTree, int index, long delta, Operation operation){
         index--;
         input[index] += delta;
-        deltaUpdateSegmentTreeUtil(segmentTree, index, delta, 0, input.length - 1, 0, operation);
+        deltaUpdateSegTreeUtil(segmentTree, index, delta, 0, input.length - 1, 0, operation);
     }
-    private void deltaUpdateSegmentTreeUtil(int[] segmentTree, int index, int delta, int low, int high, int pos, Operation operation){
+    private void deltaUpdateSegTreeUtil(long[] segmentTree, long index, long delta, int low, int high, int pos, Operation operation){
 
         //if index to be updated is less than low or higher than high just return.
         if(index < low || index > high){
@@ -94,20 +94,20 @@ public class SegmentTree {
         //and then update current tree position if min of left or right has
         //changed.
         int mid = (low + high)/2;
-        deltaUpdateSegmentTreeUtil(segmentTree, index, delta, low, mid, 2 * pos + 1, operation);
-        deltaUpdateSegmentTreeUtil(segmentTree, index, delta, mid + 1, high, 2 * pos + 2, operation);
+        deltaUpdateSegTreeUtil(segmentTree, index, delta, low, mid, 2 * pos + 1, operation);
+        deltaUpdateSegTreeUtil(segmentTree, index, delta, mid + 1, high, 2 * pos + 2, operation);
         segmentTree[pos] = operation.perform(segmentTree[2*pos+1], segmentTree[2*pos + 2]);
     }
 
     /**
      * Updates segment tree for certain index by given Value
      */
-    public void valueUpdateSegmentTree(int[] input, int[] segmentTree, int index, int value, Operation operation){
+    public void valueUpdateSegTree(long[] input, long[] segmentTree, int index, long value, Operation operation){
         index--;
         input[index] = value;
-        valueUpdateSegmentTreeUtil(segmentTree, index, value, 0, input.length - 1, 0, operation);
+        valueUpdateSegTreeUtil(segmentTree, index, value, 0, input.length - 1, 0, operation);
     }
-    private void valueUpdateSegmentTreeUtil(int[] segmentTree, int index, int value, int low, int high, int pos, Operation operation){
+    private void valueUpdateSegTreeUtil(long[] segmentTree, long index, long value, int low, int high, int pos, Operation operation){
 
         //if index to be updated is less than low or higher than high just return.
         if(index < low || index > high){
@@ -124,19 +124,19 @@ public class SegmentTree {
         //and then update current tree position if min of left or right has
         //changed.
         int mid = (low + high)/2;
-        valueUpdateSegmentTreeUtil(segmentTree, index, value, low, mid, 2 * pos + 1, operation);
-        valueUpdateSegmentTreeUtil(segmentTree, index, value, mid + 1, high, 2 * pos + 2, operation);
+        valueUpdateSegTreeUtil(segmentTree, index, value, low, mid, 2 * pos + 1, operation);
+        valueUpdateSegTreeUtil(segmentTree, index, value, mid + 1, high, 2 * pos + 2, operation);
         segmentTree[pos] = operation.perform(segmentTree[2*pos+1], segmentTree[2*pos + 2]);
     }
 
     /**
      * Queries given range lazily (delta)
      */
-    public int deltaRangeQueryLazy(int[] segmentTree, int[] lazy, int qlow, int qhigh, int len,Operation operation) {
+    public long deltaRangeQueryLazy(long[] segmentTree, long[] lazy, long qlow, long qhigh, int len,Operation operation) {
         return deltaRangeQueryLazyUtil(segmentTree, lazy, qlow-1, qhigh-1, 0, len - 1, 0,operation);
     }
-    private int deltaRangeQueryLazyUtil(int[] segmentTree, int[] lazy, int qlow, int qhigh,
-                               int low, int high, int pos,Operation operation) {
+    private long deltaRangeQueryLazyUtil(long[] segmentTree, long[] lazy, long qlow, long qhigh,
+                                        int low, int high, int pos,Operation operation) {
 
         if(low > high) {
             return 0;
@@ -175,15 +175,15 @@ public class SegmentTree {
     /**
      * Updates given range by given delta lazily
      */
-    public void deltaUpdateSegmentTreeRangeLazy(int[] input, int[] segmentTree, int[] lazy, int startRange, int endRange,
-                                                int delta, Operation operation) {
-        deltaUpdateSegmentTreeLazyUtil(segmentTree, lazy, startRange-1, endRange-1, delta, 0,
+    public void deltaUpdateSegTreeRangeLazy(long[] input, long[] segmentTree, long[] lazy, long startRange, long endRange,
+                                                long delta, Operation operation) {
+        deltaUpdateSegTreeLazyUtil(segmentTree, lazy, startRange-1, endRange-1, delta, 0,
                 input.length - 1, 0, operation);
     }
 
-    private void deltaUpdateSegmentTreeLazyUtil(int[] segmentTree,
-                                            int[] lazy, int startRange, int endRange,
-                                            int delta, int low, int high, int pos, Operation operation) {
+    private void deltaUpdateSegTreeLazyUtil(long[] segmentTree,
+                                                long[] lazy, long startRange, long endRange,
+                                                long delta, int low, int high, int pos, Operation operation) {
         if(low > high) {
             return;
         }
@@ -216,9 +216,9 @@ public class SegmentTree {
 
         //otherwise partial overlap so look both left and right.
         int mid = (low + high)/2;
-        deltaUpdateSegmentTreeLazyUtil(segmentTree, lazy, startRange, endRange,
+        deltaUpdateSegTreeLazyUtil(segmentTree, lazy, startRange, endRange,
                 delta, low, mid, 2*pos+1, operation);
-        deltaUpdateSegmentTreeLazyUtil(segmentTree, lazy, startRange, endRange,
+        deltaUpdateSegTreeLazyUtil(segmentTree, lazy, startRange, endRange,
                 delta, mid+1, high, 2*pos+2, operation);
         segmentTree[pos] = operation.perform(segmentTree[2*pos + 1], segmentTree[2*pos + 2]);
     }
@@ -226,10 +226,10 @@ public class SegmentTree {
     /**
      * Queries given range lazily (value)
      */
-    public int valueRangeQueryLazy(int[] segmentTree, int[] lazy, int qlow, int qhigh, int len,Operation operation) {
+    public long valueRangeQueryLazy(long[] segmentTree, long[] lazy, long qlow, long qhigh, int len,Operation operation) {
         return valueRangeQueryLazyUtil(segmentTree, lazy, qlow-1, qhigh-1, 0, len - 1, 0,operation);
     }
-    private int valueRangeQueryLazyUtil(int[] segmentTree, int[] lazy, int qlow, int qhigh,
+    private long valueRangeQueryLazyUtil(long[] segmentTree, long[] lazy, long qlow, long qhigh,
                                         int low, int high, int pos,Operation operation) {
 
         if(low > high) {
@@ -269,15 +269,15 @@ public class SegmentTree {
     /**
      * Updates given range by given value lazily
      */
-    public void valueUpdateSegmentTreeRangeLazy(int[] input, int[] segmentTree, int[] lazy, int startRange, int endRange,
-                                                int value, Operation operation) {
-        valueUpdateSegmentTreeLazyUtil(segmentTree, lazy, startRange-1, endRange-1, value, 0,
+    public void valueUpdateSegTreeRangeLazy(long[] input, long[] segmentTree, long[] lazy, long startRange, long endRange,
+                                                long value, Operation operation) {
+        valueUpdateSegTreeLazyUtil(segmentTree, lazy, startRange-1, endRange-1, value, 0,
                 input.length - 1, 0, operation);
     }
 
-    private void valueUpdateSegmentTreeLazyUtil(int[] segmentTree,
-                                                int[] lazy, int startRange, int endRange,
-                                                int value, int low, int high, int pos, Operation operation) {
+    private void valueUpdateSegTreeLazyUtil(long[] segmentTree,
+                                                long[] lazy, long startRange, long endRange,
+                                                long value, int low, int high, int pos, Operation operation) {
         if(low > high) {
             return;
         }
@@ -310,9 +310,9 @@ public class SegmentTree {
 
         //otherwise partial overlap so look both left and right.
         int mid = (low + high)/2;
-        valueUpdateSegmentTreeLazyUtil(segmentTree, lazy, startRange, endRange,
+        valueUpdateSegTreeLazyUtil(segmentTree, lazy, startRange, endRange,
                 value, low, mid, 2*pos+1, operation);
-        valueUpdateSegmentTreeLazyUtil(segmentTree, lazy, startRange, endRange,
+        valueUpdateSegTreeLazyUtil(segmentTree, lazy, startRange, endRange,
                 value, mid+1, high, 2*pos+2, operation);
         segmentTree[pos] = operation.perform(segmentTree[2*pos + 1], segmentTree[2*pos + 2]);
     }

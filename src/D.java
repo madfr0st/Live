@@ -1,96 +1,58 @@
+
+
 import java.io.*;
 import java.util.*;
 
 
 public class D {
-    static class Graph{
-        int vertices;
-        ArrayList<ArrayList<Integer>> edge;
-        Set<Integer> set;
-        Graph(int vertices){
-            this.vertices = vertices;
-            set = new HashSet<>();
-            edge = new ArrayList<>();
-            for(int i=0;i<=vertices;i++){
-                edge.add(new ArrayList<>());
-            }
+
+    static class Pair<U extends Comparable<U>, V extends Comparable<V>>
+            implements Comparable<Pair<U,V>>{
+
+        public final U a;
+        public final V b;
+
+        private Pair(U a, V b) {
+            this.a = a;
+            this.b = b;
         }
 
-        void addEdge(int a,int b){
-            edge.get(a).add(b);
-            edge.get(b).add(a);
+        @Override
+        public boolean equals(Object o) {
+            if (this == o)
+                return true;
+            if (o == null || getClass() != o.getClass())
+                return false;
+
+            Pair<?, ?> pair = (Pair<?, ?>) o;
+            if (!a.equals(pair.a))
+                return false;
+            return b.equals(pair.b);
         }
 
-        void addSpecialEdge() throws IOException{
-            String[] s1 = inp.readLine().split(" ");
-            for(int i=0;i<s1.length;i++){
-                set.add(Integer.parseInt(s1[i]));
-            }
+        @Override
+        public int hashCode() {
+            return 31 * a.hashCode() + b.hashCode();
         }
 
-        void bfs(){
-            Queue<Integer> queue = new ArrayDeque<>();
-            Map<Integer,Integer> distStart = new HashMap<>();
-            Map<Integer,Integer> parent = new HashMap<>();
-            boolean[] visited = new boolean[vertices+1];
-            queue.add(1);
-            visited[1] = true;
-            parent.put(1,1);
-            distStart.put(1,0);
-
-            while (queue.size()>0){
-                int v = queue.poll();
-                Iterator<Integer> iterator = edge.get(v).listIterator();
-                while (iterator.hasNext()){
-                    int n = iterator.next();
-                    if(!visited[n]){
-                        queue.add(n);
-                        visited[n] = true;
-                        parent.put(n,v);
-                        distStart.put(n,distStart.get(v)+1);
-                    }
-                }
-            }
-
-            Map<Integer,Integer> distLast = new HashMap<>();
-            parent.clear();
-            visited = new boolean[vertices+1];
-            queue.add(vertices);
-            visited[vertices] = true;
-            parent.put(vertices,vertices);
-            distLast.put(vertices,0);
-
-
-            while (queue.size()>0){
-                int v = queue.poll();
-                Iterator<Integer> iterator = edge.get(v).listIterator();
-                while (iterator.hasNext()){
-                    int n = iterator.next();
-                    if(!visited[n]){
-                        queue.add(n);
-                        visited[n] = true;
-                        parent.put(n,v);
-                        distLast.put(n,distLast.get(v)+1);
-                    }
-                }
-            }
-
-            int dist = distStart.get(vertices);
-            System.out.println(distLast);
-            System.out.println(distStart);
-            int max = 0;
-            for(int i=1;i<=vertices;i++){
-               int a =(distLast.get(i)-distStart.get(i));
-               if(a+1<=dist){
-                   max = Math.max(max,a);
-               }
-            }
-
-            System.out.println(max);
-
+        @Override
+        public String toString() {
+            return "(" + a + ", " + b + ")";
         }
 
-
+        @Override
+        public int compareTo(Pair<U, V> o) {
+            if(this.a.equals(o.a)){
+                return getV().compareTo(o.getV());
+            }
+            return getU().compareTo(o.getU());
+        }
+        private U getU() {
+            return a;
+        }
+        private V getV() {
+            return b;
+        }
     }
 
     static BufferedReader inp = new BufferedReader(new InputStreamReader(System.in));
@@ -98,19 +60,159 @@ public class D {
 
     public static void main(String[] args) throws IOException {
 
-        String[] s1 = inp.readLine().split(" ");
-        int v = Integer.parseInt(s1[0]);
-        int e = Integer.parseInt(s1[1]);
-        int s = Integer.parseInt(s1[2]);
+        int testCase = Integer.parseInt(inp.readLine());
+        while (testCase-->0){
+            int size = Integer.parseInt(inp.readLine());
+            int[] given = new int[size];
+            String[] s1 = inp.readLine().split(" ");
+            for(int i=0;i<size;i++){
+                given[i] = Integer.parseInt(s1[i]);
+            }
+            int size1 = Integer.parseInt(inp.readLine());
+            Pair<Integer,Integer>[] pairs = new Pair[size1];
+            for(int i=0;i<size1;i++){
+                s1 = inp.readLine().split(" ");
+                int a = Integer.parseInt(s1[0]);
+                int b = Integer.parseInt(s1[1]);
+                pairs[i] = new Pair<>(a,b);
+            }
+            Map<Integer,Integer> map = new HashMap<>();
+            int d = -1;
+            int max = 0;
+            for(int i=0;i<size1;i++){
+                int c = pairs[i].b ;
+                if(map.containsKey(c)){
+                    map.put(c,Math.max(map.get(c),pairs[i].a));
+                }
+                else{
+                    map.put(c,pairs[i].a);
+                }
+            }
 
-        Graph graph = new Graph(v);
-        graph.addSpecialEdge();
-        for(int i=0;i<e;i++){
-            s1 = inp.readLine().split(" ");
-            int a = Integer.parseInt(s1[0]);
-            int b = Integer.parseInt(s1[1]);
-            graph.addEdge(a,b);
+            //System.out.println(map);
+
+            int[] maxDamage = new int[size];
+
+            if(map.containsKey(size)) {
+                maxDamage[size-1] = map.get(size);
+            }
+
+            for(int i=size-2;i>=0;i--){
+
+                if(map.containsKey(i+1)){
+                    maxDamage[i] = Math.max(maxDamage[i+1],map.get(i+1));
+                }
+                else{
+                    maxDamage[i] = maxDamage[i+1];
+                }
+
+            }
+
+            //print(maxDamage);
+            int count = 0;
+            boolean ans = true;
+            for(int i=0;i<size;i++){
+                int a = given[i];
+                max = Math.max(a,max);
+
+                if(max>maxDamage[0]){
+                    ans = false;
+                    break;
+                }
+
+                if(maxDamage[d+1]>=max){
+                    d++;
+                }
+                else{
+                    //System.out.println(max);
+                    d = -1;
+                    count++;
+                    max = 0;
+                    i--;
+                }
+            }
+
+            if(d>-1){
+                count++;
+            }
+
+            if(ans) {
+                out.write(count + "\n");
+
+            }
+            else{
+                out.write(-1+"\n");
+            }
+
+
+
+
         }
-        graph.bfs();
+        out.flush();
+
+
+
+    }
+    static void print(int[] array){
+        for(int j=0;j<array.length;j++){
+            System.out.print(array[j]+" ");
+        }
+        System.out.println();
+    }
+    static void print(int[][] array){
+        for(int i=0;i< array.length;i++) {
+            for (int j = 0; j < array[0].length; j++) {
+                System.out.print(array[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+    static void print(boolean[] array){
+        for(int j=0;j<array.length;j++){
+            System.out.print(array[j]+" ");
+        }
+        System.out.println();
+    }
+    static void print(boolean[][] array){
+        for(int i=0;i< array.length;i++) {
+            for (int j = 0; j < array[0].length; j++) {
+                System.out.print(array[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+    static void print(long[] array){
+        for(int j=0;j<array.length;j++){
+            System.out.print(array[j]+" ");
+        }
+        System.out.println();
+    }
+    static void print(long[][] array){
+        for(int i=0;i< array.length;i++) {
+            for (int j = 0; j < array[0].length; j++) {
+                System.out.print(array[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+    static void print(String[] array){
+        for(int j=0;j<array.length;j++){
+            System.out.print(array[j]+" ");
+        }
+        System.out.println();
+    }
+    static void print(String[][] array){
+        for(int i=0;i< array.length;i++) {
+            for (int j = 0; j < array[0].length; j++) {
+                System.out.print(array[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+    static long calc(int a,int b){
+        long c = b-a+1;
+        c = c*(c+1);
+        c/=2l;
+        return c;
     }
 }

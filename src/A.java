@@ -10,34 +10,22 @@ public class A {
 
         int testCase = Integer.parseInt(inp.readLine());
         for(int t=0;t<testCase;t++){
+
             String[] s1 = inp.readLine().split(" ");
-            int size = Integer.parseInt(s1[0]);
-            int days = Integer.parseInt(s1[1]);
+            int a = Integer.parseInt(s1[0]);
+            int b = Integer.parseInt(s1[1]);
+            int c = Integer.parseInt(s1[2]);
+            int d = Integer.parseInt(s1[3]);
 
-            s1 = inp.readLine().split(" ");
-            int ans = 0;
-            int[] given = new int[size];
-            for(int i=0;i<size;i++){
-                given[i] = Integer.parseInt(s1[i]);
-            }
-            ans = given[0];
+            int diff = Math.abs(c-d);
+            int ans = Math.min(a-1,diff+b);
+            out.write(ans+"\n");
 
-            for(int i=1;i<size;i++){
-                int a = given[i];
-                if(a*i<=days){
-                    ans+=a;
-                    days-=a*i;
-                }
-                else{
-                    int b = days/i;
-                    ans+=b;
-                    break;
-                }
-            }
-
-            System.out.println(ans);
 
         }
+
+
+        out.flush();
 
     }
 }
