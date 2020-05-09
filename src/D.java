@@ -3,81 +3,133 @@ import java.util.*;
 
 
 public class D {
+    static class Pair<U extends Comparable<U>, V extends Comparable<V>>
+            implements Comparable<Pair<U,V>>{
+
+        public final U a;
+        public final V b;
+
+        private Pair(U a, V b) {
+            this.a = a;
+            this.b = b;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o)
+                return true;
+            if (o == null || getClass() != o.getClass())
+                return false;
+
+            Pair<?, ?> pair = (Pair<?, ?>) o;
+            if (!a.equals(pair.a))
+                return false;
+            return b.equals(pair.b);
+        }
+
+        @Override
+        public int hashCode() {
+            return 31 * a.hashCode() + b.hashCode();
+        }
+
+        @Override
+        public String toString() {
+            return "(" + a + ", " + b + ")";
+        }
+
+        @Override
+        public int compareTo(Pair<U, V> o) {
+            if(this.a.equals(o.a)){
+                return getV().compareTo(o.getV());
+            }
+            return getU().compareTo(o.getU());
+        }
+        private U getU() {
+            return a;
+        }
+        private V getV() {
+            return b;
+        }
+    }
+
 
     static BufferedReader inp = new BufferedReader(new InputStreamReader(System.in));
     static BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
 
     public static void main(String[] args) throws IOException {
 
-
-
         String[] s1 = inp.readLine().split(" ");
-        long xor = Long.parseLong(s1[0]);
-        long sum = Long.parseLong(s1[1]);
+        int n = Integer.parseInt(s1[0]);
+        int m = Integer.parseInt(s1[1]);
+        int t = Integer.parseInt(s1[2]);
 
-        if(sum>xor) {
-            if( ((xor^sum)&1)==0){
+        long[][] dp = new long[n][n];
+        Set<Integer>[][] set = new HashSet[n][n];
+        Map<Pair<Integer,Integer>,Long> map = new HashMap<>();
+        long[] given = new long[n];
 
-                long a = sum-xor;
+        s1 = inp.readLine().split(" ");
+        for(int i=0;i<n;i++){
+            given[i] = Integer.parseInt(s1[i]);
+        }
+        for(int i=0;i<t;i++){
+            s1 = inp.readLine().split(" ");
+            int a = Integer.parseInt(s1[0]);
+            int b = Integer.parseInt(s1[1]);
+            int c = Integer.parseInt(s1[2]);
+            map.put(new Pair<>(a-1,b-1),(long)c);
+        }
 
-                long b = a/2;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                set[i][j] = new HashSet<>();
+            }
+        }
 
-                ArrayList<Integer> list = decToBinary(xor);
-                ArrayList<Integer> list1 = decToBinary(b);
+        for(int i=0;i<n;i++){
+            dp[0][i] = given[i];
+            set[0][i].add(i);
+        }
 
-                boolean ans = true;
+        for(int i=0;i<n-1;i++){
+            for(int j=0;j<n;j++){
+                int max = 0;
+                int at = -1;
+                for(int k=0;k<n;k++){
+                    if(!set[i][j].contains(k)){
+                        long sum = given[k]+dp[i][j];
+                        if(map.containsKey(new Pair<>(j,k))){
+                            sum+=map.get(new Pair<>(j,k));
+                        }
 
-                for(int i=0;i<64;i++){
-                    if(list.get(i)==1 && list1.get(i)==1){
-                        ans = false;
-                        break;
+                        if(sum>dp[i+1][k]){
+                            dp[i+1][k] = sum;
+                            set[i+1][k] = new HashSet<>(set[i][j]);
+                            set[i+1][k].add(k);
+                        }
                     }
                 }
-
-                if(ans){
-                    xor+=b;
-                    out.write(2+"\n");
-                    out.write(b+" "+xor+"\n");
-                }
-                else{
-                    out.write(3+"\n");
-                    out.write(b+" "+b+" "+xor+"\n");
-                }
-
-
+//                print(dp);
+//                System.out.println();
+//                for(int ii=0;ii<n;ii++){
+//                    for(int jj=0;jj<n;jj++){
+//                        System.out.print(set[ii][jj]+" ");
+//                    }
+//                    System.out.println();
+//                }
             }
-            else{
-                out.write(-1+"\n");
-            }
-
-        }
-        else if(sum==xor && sum==0){
-            out.write(sum+"\n");
         }
 
-        else if(sum==xor){
-            out.write(1+"\n");
-            out.write(sum+"\n");
+        long max = 0;
+        for(int i=0;i<n;i++){
+            max = Math.max(dp[m-1][i],max);
         }
-        else {
-            out.write(-1+"\n");
-        }
-
+        out.write(max+"\n");
 
         out.flush();
 
-    }
-    public static ArrayList<Integer> decToBinary(long n)
-    {
-        ArrayList<Integer> list = new ArrayList<>();
-        for (int i = 63; i >= 0; i--) {
-            long k = n >> i;
-            if ((k & 1L) > 0)
-                list.add(1);
-            else
-                list.add(0);
-        }
-        return list;
+
+
     }
     static void print(int[] array){
         for(int j=0;j<array.length;j++){
@@ -134,11 +186,5 @@ public class D {
             }
             System.out.println();
         }
-    }
-    static long calc(int a,int b){
-        long c = b-a+1;
-        c = c*(c+1);
-        c/=2l;
-        return c;
     }
 }

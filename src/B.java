@@ -3,63 +3,35 @@ import java.io.*;
 import java.util.*;
 
 public class B {
+    static BufferedReader inp = new BufferedReader(new InputStreamReader(System.in));
+    static BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
 
     public static void main(String[] args) throws IOException {
-        BufferedReader inp = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        int testCase = Integer.parseInt(inp.readLine());
+        int t = Integer.parseInt(inp.readLine());
+        while (t-->0){
+            long a = Integer.parseInt(inp.readLine());
+            long ans = 0;
+            long rem = a;
 
-        while (testCase-- > 0) {
-            String[] s1 = inp.readLine().split(" ");
-            int size = Integer.parseInt(s1[0]);
-            int k = Integer.parseInt(s1[1]);
-
-            int[] given = new int[size];
-            s1 = inp.readLine().split(" ");
-
-            for (int i = 0; i < size; i++) {
-
-                given[i] = Integer.parseInt(s1[i]);
-
-            }
-
-            int[] dp = new int[size];
-
-            int max = 0;
-            int at = 0;
-
-            for (int i = size-2; i >0; i--) {
-
-                if (given[i - 1] < given[i] && given[i + 1] < given[i]) {
-                    dp[i]++;
-                    dp[i]+=dp[i+1];
-                } else {
-                    dp[i] += dp[i +1];
+            long h = 0;
+            while (true){
+                h = ((long) (-1+Math.sqrt(1+24*rem)))/6;
+                //System.out.println(rem);
+                if(h>0){
+                    ans++;
+                    rem = (long) (rem - (3*Math.pow(h,2)+h)/2);
                 }
-
-            }
-
-            dp[0] = dp[1];
-            //print(dp);
-
-            for(int i=size-1;i>k-2;i--){
-
-                int a = dp[i-k+2] - dp[i];
-                //System.out.println((i-k+2)+ " "+(i));
-
-                if(a>=max){
-                    max = a;
-                    at = i-k+1+1;
+                else {
+                    break;
                 }
-
             }
-
-            max++;
-            out.write(max +" "+ at+"\n");
-
+            //System.out.println();
+            out.write(ans+"\n");
 
         }
+
+
 
         out.flush();
     }

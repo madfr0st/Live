@@ -3,10 +3,7 @@ import imp.MergeSort;
 import imp.ModuloInverse;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-
+import java.util.*;
 
 public class Main {
 
@@ -14,17 +11,8 @@ public class Main {
     static BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
 
     public static void main(String[] args) throws IOException {
-
-        ModuloInverse moduloInverse = new ModuloInverse();
-
-        int a = 10010;
-        int m = 97;
-
-        System.out.println(moduloInverse.modInverseMprime(a,m));
-        System.out.println(moduloInverse.modInverseCoprime(a,m));
-        System.out.println(modInverse(a,m));
-
-
+        int a = Solution.solution(new int[]{1, 2, 3, 4, 5, 6}, new int[]{1, -1, 2, 3, 4, 5, 6});
+        System.out.println(a);
     }
     static int modInverse(int a, int m)
     {
