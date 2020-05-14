@@ -8,42 +8,21 @@ public class C {
 
     public static void main(String[] args) throws IOException {
 
-
         int t = Integer.parseInt(inp.readLine());
+        int a = (int)5e5+1;
+        long[] dp = new long[a];
+        long eight = 8;
+        for(int i=1;i<a;i++){
+            eight = 8*i;
+            dp[i] = dp[i-1]+eight*(long)i;
+        }
         while (t-->0){
-            int n =Integer.parseInt(inp.readLine());
-            Set<Integer> set = new HashSet<>();
-            String[] s1 = inp.readLine().split(" ");
-            int[] given = new int[n];
-            for(int i=0;i<n;i++){
-                given[i] = i+Integer.parseInt(s1[i]);
-            }
-            //print(given);
-            boolean ans = true;
-            for(int i=0;i<n;i++){
-                int rem = given[i]%n;
-                if(rem<0){
-                    rem+=n;
-                }
-
-                if(set.contains(rem)){
-                    ans = false;
-                }
-                else {
-                    set.add(rem);
-                }
-
-            }
-            if(ans) {
-                out.write("YES" + "\n");
-            }
-            else{
-                out.write("NO"+"\n");
-            }
+            int size = Integer.parseInt(inp.readLine());
+            int n = (size-1)/2+1;
+            //System.out.println(n);
+            out.write(dp[n-1]+"\n");
 
         }
-
-
 
         out.flush();
 

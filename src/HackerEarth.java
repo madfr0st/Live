@@ -1,9 +1,10 @@
+
+
 import java.io.*;
 import java.util.*;
 
 
-public class D {
-
+class HackerEarth {
     static class Pair<U extends Comparable<U>, V extends Comparable<V>>
             implements Comparable<Pair<U,V>>{
 
@@ -51,77 +52,35 @@ public class D {
         private V getV() {
             return b;
         }
-    }
+        static void print(Pair[] pairs){
+            for(int i=0;i<pairs.length;i++){
+                System.out.print(pairs[i]+" ");
+            }
+            System.out.println();
+        }
+        static void print(Pair[][] pairs){
 
+            for(int i=0;i<pairs.length;i++){
+                for(int j=0;j<pairs[0].length;j++) {
+                    System.out.print(pairs[i] + " ");
+                }
+                System.out.println();
+            }
+        }
+    }
 
 
 
     static BufferedReader inp = new BufferedReader(new InputStreamReader(System.in));
     static BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
-    static int[] array;
 
     public static void main(String[] args) throws IOException {
 
-
-        int t = Integer.parseInt(inp.readLine());
-        while (t-->0){
-
-            int size = Integer.parseInt(inp.readLine());
-            array = new int[size+1];
-
-            int i = 1;
-            PriorityQueue<Pair<Integer,Pair<Integer,Integer>>> priorityQueue = new PriorityQueue<>();
-            priorityQueue.add(new Pair<>(-size,new Pair<>(1,size)));
-            while (priorityQueue.size()>0){
-                Pair<Integer,Pair<Integer,Integer>> pairPair = priorityQueue.poll();
-                //System.out.println(pairPair);
-                int a = -pairPair.a;
-                int l = pairPair.b.a;
-                int r = pairPair.b.b;
-                int mid= 0;
-                if(l==r){
-                    array[l] = i;
-                }
-                else if(a%2==1){
-                    mid = (l+r)/2;
-                    array[mid] = i;
-                    if(l<=mid-1){
-                        priorityQueue.add(new Pair<>(-a/2,new Pair<>(l,mid-1)));
-                    }
-                    if(r>=mid+1){
-                        priorityQueue.add(new Pair<>(-a/2,new Pair<>(mid+1,r)));
-                    }
-                }
-                else{
-                    mid = (l+r-1)/2;
-                    array[mid] = i;
-                    if(l<=mid-1){
-                        priorityQueue.add(new Pair<>(-a/2+1,new Pair<>(l,mid-1)));
-                    }
-                    if(r>=mid+1){
-                        priorityQueue.add(new Pair<>(-a/2,new Pair<>(mid+1,r)));
-                    }
-                }
-
-                i++;
-            }
-
-            for(i=0;i<size;i++){
-                out.write(array[i+1]+" ");
-            }
-            //print(array);
-    out.write("\n");
-
-        }
-
-
-        out.flush();
-
-
+        Pair<Integer,Integer>[] pairs = new Pair[]{new Pair(1,2),new Pair(3,4)};
+        Pair<Integer,Integer> pair = new Pair<>(1,2);
+        Pair.print(pairs);
 
     }
-
-
     static void print(int[] array){
         for(int j=0;j<array.length;j++){
             System.out.print(array[j]+" ");
@@ -178,4 +137,11 @@ public class D {
             System.out.println();
         }
     }
+    static long calc(int a,int b){
+        long c = b-a+1;
+        c = c*(c+1);
+        c/=2l;
+        return c;
+    }
 }
+

@@ -63,6 +63,21 @@ class Pair<U extends Comparable<U>, V extends Comparable<V>>
     private V getV() {
         return b;
     }
+    static void print(Pair[] pairs){
+        for(int i=0;i<pairs.length;i++){
+            System.out.print(pairs[i]+" ");
+        }
+        System.out.println();
+    }
+    static void print(Pair[][] pairs){
+
+        for(int i=0;i<pairs.length;i++){
+            for(int j=0;j<pairs[0].length;j++) {
+                System.out.print(pairs[i] + " ");
+            }
+            System.out.println();
+        }
+    }
     public static void main(String[] args){
         Pair<Integer,Integer> pair1 = new Pair<>(1,2);
         Pair<Integer,Integer> pair2 = new Pair<>(1,2);

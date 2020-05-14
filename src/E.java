@@ -1,4 +1,5 @@
 import java.io.*;
+import java.sql.Array;
 import java.util.*;
 
 
@@ -8,43 +9,41 @@ public class E {
 
     public static void main(String[] args) throws IOException {
 
+        int t = Integer.parseInt(inp.readLine());
+        while (t-->0){
+            String[] s1 = inp.readLine().split(" ");
+            int size = Integer.parseInt(s1[0]);
+            int k = Integer.parseInt(s1[1]);
 
-        long n = Integer.parseInt(inp.readLine());
-        long tenFact = 720*8*9*10;
-        long nineFact = 720*8*9;
+            String[] strings = inp.readLine().split("");
+            int[]dp = new int[size];
 
-        long mod = 998244353;
-        long side = 9;
-        long center = 9*9*10;
-        long len = n;
-
-        ArrayList<Long> ans = new ArrayList<>();
-        ans.add(10L);
-
-        for(int i=2;i<=n;i++){
-
-            int rest = i-2;
-
-            long a = 2*side*10;
-            a%=mod;
-            side*=10;
-            side%=mod;
-
-            if(rest>0){
-                a += center * rest;
-                center *= 10;
-                center %= mod;
-                a %= mod;
-
+            int[] sum = new int[size];
+            int a = 0;
+            for(int i=size-1;i>=0;i--){
+                if(strings[i].equals("1")){
+                    a++;
+                }
+                sum[i] = a;
             }
-            ans.add(a);
+            int min = (int)1e10;
+            for(int i=0;i<k;i++){
+                int b = 0;
+                int c = 0;
+                for(int j=i;j<size;j+=k){
+                    c++;
+                    if(strings[j].equals("1")){
+                        b++;
+                    }
+                }
+                //System.out.println(b+" "+c);
+                int ans = c-b+(a-b);
+                min = Math.min(ans,min);
+                //System.out.println(ans+" '");
+            }
+            System.out.println(min);
+
         }
-
-        for(int i=0;i<ans.size();i++){
-            out.write(ans.get(ans.size()-1-i)+" ");
-        }
-
-
 
         out.flush();
 
