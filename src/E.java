@@ -1,53 +1,233 @@
 import java.io.*;
-import java.sql.Array;
 import java.util.*;
 
 
 public class E {
+
+    static class Pair<U extends Comparable<U>, V extends Comparable<V>>
+            implements Comparable<Pair<U,V>>{
+
+        public final U a;
+        public final V b;
+
+        private Pair(U a, V b) {
+            this.a = a;
+            this.b = b;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o)
+                return true;
+            if (o == null || getClass() != o.getClass())
+                return false;
+
+            Pair<?, ?> pair = (Pair<?, ?>) o;
+            if (!a.equals(pair.a))
+                return false;
+            return b.equals(pair.b);
+        }
+
+        @Override
+        public int hashCode() {
+            return 31 * a.hashCode() + b.hashCode();
+        }
+
+        @Override
+        public String toString() {
+            return "(" + a + ", " + b + ")";
+        }
+
+        @Override
+        public int compareTo(Pair<U, V> o) {
+            if(this.a.equals(o.a)){
+                return getV().compareTo(o.getV());
+            }
+            return getU().compareTo(o.getU());
+        }
+        private U getU() {
+            return a;
+        }
+        private V getV() {
+            return b;
+        }
+        static void print(Pair[] pairs){
+            for(int i=0;i<pairs.length;i++){
+                System.out.print(pairs[i]+" ");
+            }
+            System.out.println();
+        }
+        static void print(Pair[][] pairs){
+
+            for(int i=0;i<pairs.length;i++){
+                for(int j=0;j<pairs[0].length;j++) {
+                    System.out.print(pairs[i] + " ");
+                }
+                System.out.println();
+            }
+        }
+    }
+
+
     static BufferedReader inp = new BufferedReader(new InputStreamReader(System.in));
     static BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
 
     public static void main(String[] args) throws IOException {
 
-        int t = Integer.parseInt(inp.readLine());
-        while (t-->0){
-            String[] s1 = inp.readLine().split(" ");
-            int size = Integer.parseInt(s1[0]);
-            int k = Integer.parseInt(s1[1]);
 
-            String[] strings = inp.readLine().split("");
-            int[]dp = new int[size];
-
-            int[] sum = new int[size];
-            int a = 0;
-            for(int i=size-1;i>=0;i--){
-                if(strings[i].equals("1")){
-                    a++;
-                }
-                sum[i] = a;
-            }
-            int min = (int)1e10;
-            for(int i=0;i<k;i++){
-                int b = 0;
-                int c = 0;
-                for(int j=i;j<size;j+=k){
-                    c++;
-                    if(strings[j].equals("1")){
-                        b++;
-                    }
-                }
-                //System.out.println(b+" "+c);
-                int ans = c-b+(a-b);
-                min = Math.min(ans,min);
-                //System.out.println(ans+" '");
-            }
-            System.out.println(min);
-
-        }
 
         out.flush();
 
     }
+
+
+
+    private static void merge(int[] arr, int left, int middle, int right) {
+
+        int size1 = middle - left + 1;
+        int size2 = right - middle;
+
+        /* Create temp arrays */
+        int[] Left = new int [size1];
+        int[] Right = new int [size2];
+
+        /*Copy data to temp arrays*/
+        for (int i=0; i<size1; ++i) {
+            Left[i] = arr[left + i];
+        }
+        for (int j=0; j<size2; ++j) {
+            Right[j] = arr[middle + 1 + j];
+        }
+
+        /* Merge the temp arrays */
+
+        // Initial indexes of first and second subarrays
+        int i = 0, j = 0;
+
+        // Initial index of merged subarry array
+        int k = left;
+        while (i < size1 && j < size2)
+        {
+            if (Left[i] <= Right[j])
+            {
+                arr[k] = Left[i];
+                i++;
+            }
+            else
+            {
+                arr[k] = Right[j];
+                j++;
+            }
+            k++;
+        }
+
+        /* Copy remaining elements of L[] if any */
+        while (i < size1)
+        {
+            arr[k] = Left[i];
+            i++;
+            k++;
+        }
+
+        /* Copy remaining elements of R[] if any */
+        while (j < size2)
+        {
+            arr[k] = Right[j];
+            j++;
+            k++;
+        }
+    }
+
+    // Main function that sorts arr[l..r] using
+// merge()
+    static void sort(int[] arr, int left, int right) {
+        if (left < right)
+        {
+            // Find the middle point
+            int m = (left+right)/2;
+
+            // Sort first and second halves
+            sort(arr, left, m);
+            sort(arr , m+1, right);
+
+            // Merge the sorted halves
+            merge(arr, left, m, right);
+        }
+    }
+
+    private static void merge(long[] arr, int left, int middle, int right) {
+
+        int size1 = middle - left + 1;
+        int size2 = right - middle;
+
+        /* Create temp arrays */
+        long[] Left = new long [size1];
+        long[] Right = new long [size2];
+
+        /*Copy data to temp arrays*/
+        for (int i=0; i<size1; ++i) {
+            Left[i] = arr[left + i];
+        }
+        for (int j=0; j<size2; ++j) {
+            Right[j] = arr[middle + 1 + j];
+        }
+
+        /* Merge the temp arrays */
+
+        // Initial indexes of first and second subarrays
+        int i = 0, j = 0;
+
+        // Initial index of merged subarry array
+        int k = left;
+        while (i < size1 && j < size2)
+        {
+            if (Left[i] <= Right[j])
+            {
+                arr[k] = Left[i];
+                i++;
+            }
+            else
+            {
+                arr[k] = Right[j];
+                j++;
+            }
+            k++;
+        }
+
+        /* Copy remaining elements of L[] if any */
+        while (i < size1)
+        {
+            arr[k] = Left[i];
+            i++;
+            k++;
+        }
+
+        /* Copy remaining elements of R[] if any */
+        while (j < size2)
+        {
+            arr[k] = Right[j];
+            j++;
+            k++;
+        }
+    }
+
+    // Main function that sorts arr[l..r] using
+// merge()
+    static void sort(long[] arr, int left, int right) {
+        if (left < right)
+        {
+            // Find the middle point
+            int m = (left+right)/2;
+
+            // Sort first and second halves
+            sort(arr, left, m);
+            sort(arr , m+1, right);
+
+            // Merge the sorted halves
+            merge(arr, left, m, right);
+        }
+    }
+
 
     static void print(int[] array){
         for(int j=0;j<array.length;j++){

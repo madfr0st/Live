@@ -2,6 +2,8 @@ package imp;
 
 public class Temp {
 
+
+
     public static void print(int[] array){
         for(int j=0;j<array.length;j++){
             System.out.print(array[j]+" ");

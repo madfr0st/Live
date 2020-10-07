@@ -13,7 +13,7 @@ private static void merge(int[] arr, int left, int middle, int right) {
     for (int i=0; i<size1; ++i) {
         Left[i] = arr[left + i];
     }
-    for (int j=0; j<size1; ++j) {
+    for (int j=0; j<size2; ++j) {
         Right[j] = arr[middle + 1 + j];
     }
 
@@ -86,7 +86,7 @@ private static void merge(long[] arr, int left, int middle, int right) {
     for (int i=0; i<size1; ++i) {
         Left[i] = arr[left + i];
     }
-    for (int j=0; j<size1; ++j) {
+    for (int j=0; j<size2; ++j) {
         Right[j] = arr[middle + 1 + j];
     }
 

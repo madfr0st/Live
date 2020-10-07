@@ -1,15 +1,16 @@
-
+package practice;
 
 import java.io.*;
 import java.util.*;
 
 
-class HackerEarth {
+public class G {
+
     static class Pair<U extends Comparable<U>, V extends Comparable<V>>
             implements Comparable<Pair<U,V>>{
 
-        public final U a;
-        public final V b;
+        final public U a;
+        final public V b;
 
         private Pair(U a, V b) {
             this.a = a;
@@ -62,7 +63,7 @@ class HackerEarth {
 
             for(int i=0;i<pairs.length;i++){
                 for(int j=0;j<pairs[0].length;j++) {
-                    System.out.print(pairs[i] + " ");
+                    System.out.print(pairs[i][j] + " ");
                 }
                 System.out.println();
             }
@@ -70,15 +71,17 @@ class HackerEarth {
     }
 
 
-
     static BufferedReader inp = new BufferedReader(new InputStreamReader(System.in));
     static BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
 
+
     public static void main(String[] args) throws IOException {
 
-        Pair<Integer,Integer>[] pairs = new Pair[]{new Pair(1,2),new Pair(3,4)};
-        Pair<Integer,Integer> pair = new Pair<>(1,2);
-        Pair.print(pairs);
+
+
+
+        out.flush();
+
 
     }
     static void print(int[] array){
@@ -136,12 +139,6 @@ class HackerEarth {
             }
             System.out.println();
         }
-    }
-    static long calc(int a,int b){
-        long c = b-a+1;
-        c = c*(c+1);
-        c/=2l;
-        return c;
     }
 }
 

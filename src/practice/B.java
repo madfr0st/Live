@@ -1,8 +1,10 @@
+package practice;
+
 import java.io.*;
 import java.util.*;
 
 
-public class F {
+public class B {
 
     static class Pair<U extends Comparable<U>, V extends Comparable<V>>
             implements Comparable<Pair<U,V>>{
@@ -72,12 +74,76 @@ public class F {
     static BufferedReader inp = new BufferedReader(new InputStreamReader(System.in));
     static BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
 
+
     public static void main(String[] args) throws IOException {
 
 
 
         out.flush();
 
+
+    }
+    static boolean check(int mid,int[] given,int size){
+
+        Set<Integer> set = new HashSet<>();
+        Map<Integer,Integer> map = new HashMap();
+
+        for(int i=mid;i<size;i++){
+            if(set.contains(given[i])){
+                map.put(given[i],map.get(given[i])+1);
+            }
+            else{
+                map.put(given[i],1);
+                set.add(given[i]);
+            }
+        }
+
+        boolean ans = false;
+
+        boolean one = true;
+        Iterator<Integer> iterator = set.iterator();
+        while (iterator.hasNext()){
+            if(map.get(iterator.next())>1){
+                one = false;
+            }
+        }
+        if(one){
+            ans = true;
+        }
+
+        for(int i=0;i<size-mid;i++){
+            int a = given[i+mid];
+            if(set.contains(a)){
+                if(map.get(a)>1){
+                    map.put(a,map.get(a)-1);
+                }
+                else{
+                    map.put(a,0);
+                    set.remove(a);
+                }
+            }
+
+            a = given[i];
+            if(set.contains(a)){
+                map.put(a,map.get(a)+1);
+            }
+            else{
+                set.add(a);
+                map.put(a,1);
+            }
+            iterator = set.iterator();
+            one = true;
+            while (iterator.hasNext()){
+                if(map.get(iterator.next())>1){
+                    one = false;
+                }
+            }
+            if(one){
+                ans = true;
+            }
+        }
+
+        return ans;
     }
 
     static void print(int[] array){
@@ -136,6 +202,5 @@ public class F {
             System.out.println();
         }
     }
-
-
 }
+

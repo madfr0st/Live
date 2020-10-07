@@ -1,8 +1,10 @@
+package practice;
+
 import java.io.*;
 import java.util.*;
 
 
-public class F {
+public class C {
 
     static class Pair<U extends Comparable<U>, V extends Comparable<V>>
             implements Comparable<Pair<U,V>>{
@@ -72,6 +74,7 @@ public class F {
     static BufferedReader inp = new BufferedReader(new InputStreamReader(System.in));
     static BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
 
+
     public static void main(String[] args) throws IOException {
 
 
@@ -79,7 +82,6 @@ public class F {
         out.flush();
 
     }
-
     static void print(int[] array){
         for(int j=0;j<array.length;j++){
             System.out.print(array[j]+" ");
@@ -136,6 +138,5 @@ public class F {
             System.out.println();
         }
     }
-
-
 }
+

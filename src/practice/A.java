@@ -1,8 +1,10 @@
+package practice;
+
 import java.io.*;
 import java.util.*;
 
 
-public class F {
+public class A {
 
     static class Pair<U extends Comparable<U>, V extends Comparable<V>>
             implements Comparable<Pair<U,V>>{
@@ -69,15 +71,22 @@ public class F {
     }
 
 
+    static long modulo = 998244353;
     static BufferedReader inp = new BufferedReader(new InputStreamReader(System.in));
     static BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
+
 
     public static void main(String[] args) throws IOException {
 
 
 
         out.flush();
+    }
 
+    static int gcd(int a, int b) {
+        if (b == 0)
+            return a;
+        return gcd(b, a % b);
     }
 
     static void print(int[] array){

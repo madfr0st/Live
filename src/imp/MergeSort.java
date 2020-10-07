@@ -15,7 +15,7 @@ public class MergeSort{
         for (int i=0; i<size1; ++i) {
             Left[i] = arr[left + i];
         }
-        for (int j=0; j<size1; ++j) {
+        for (int j=0; j<size2; ++j) {
             Right[j] = arr[middle + 1 + j];
         }
 
@@ -88,7 +88,7 @@ public class MergeSort{
         for (int i=0; i<size1; ++i) {
             Left[i] = arr[left + i];
         }
-        for (int j=0; j<size1; ++j) {
+        for (int j=0; j<size2; ++j) {
             Right[j] = arr[middle + 1 + j];
         }
 

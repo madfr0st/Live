@@ -4,17 +4,80 @@ import java.util.*;
 
 public class A {
 
-    static long modulo = 1000000007;
+    static class Pair<U extends Comparable<U>, V extends Comparable<V>>
+            implements Comparable<Pair<U,V>>{
+
+        public final U a;
+        public final V b;
+
+        private Pair(U a, V b) {
+            this.a = a;
+            this.b = b;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o)
+                return true;
+            if (o == null || getClass() != o.getClass())
+                return false;
+
+            Pair<?, ?> pair = (Pair<?, ?>) o;
+            if (!a.equals(pair.a))
+                return false;
+            return b.equals(pair.b);
+        }
+
+        @Override
+        public int hashCode() {
+            return 31 * a.hashCode() + b.hashCode();
+        }
+
+        @Override
+        public String toString() {
+            return "(" + a + ", " + b + ")";
+        }
+
+        @Override
+        public int compareTo(Pair<U, V> o) {
+            if(this.a.equals(o.a)){
+                return getV().compareTo(o.getV());
+            }
+            return getU().compareTo(o.getU());
+        }
+        private U getU() {
+            return a;
+        }
+        private V getV() {
+            return b;
+        }
+        static void print(Pair[] pairs){
+            for(int i=0;i<pairs.length;i++){
+                System.out.print(pairs[i]+" ");
+            }
+            System.out.println();
+        }
+        static void print(Pair[][] pairs){
+
+            for(int i=0;i<pairs.length;i++){
+                for(int j=0;j<pairs[0].length;j++) {
+                    System.out.print(pairs[i] + " ");
+                }
+                System.out.println();
+            }
+        }
+    }
+
     static BufferedReader inp = new BufferedReader(new InputStreamReader(System.in));
     static BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
+    static long mod = 1000000007;
 
     public static void main(String[] args) throws IOException {
 
-        for(int i=0;i<200;i++){
-            System.out.println((int)5e5-1);
-        }
+
         out.flush();
     }
+
     static int gcd(int a, int b) {
         if (b == 0)
             return a;

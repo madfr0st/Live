@@ -1,14 +1,16 @@
+package practice;
+
 import java.io.*;
 import java.util.*;
 
 
-public class F {
+public class D {
 
     static class Pair<U extends Comparable<U>, V extends Comparable<V>>
             implements Comparable<Pair<U,V>>{
 
-        public final U a;
-        public final V b;
+        public U a;
+        public V b;
 
         private Pair(U a, V b) {
             this.a = a;
@@ -51,34 +53,20 @@ public class F {
         private V getV() {
             return b;
         }
-        static void print(Pair[] pairs){
-            for(int i=0;i<pairs.length;i++){
-                System.out.print(pairs[i]+" ");
-            }
-            System.out.println();
-        }
-        static void print(Pair[][] pairs){
-
-            for(int i=0;i<pairs.length;i++){
-                for(int j=0;j<pairs[0].length;j++) {
-                    System.out.print(pairs[i] + " ");
-                }
-                System.out.println();
-            }
-        }
     }
 
 
     static BufferedReader inp = new BufferedReader(new InputStreamReader(System.in));
     static BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
 
+
+
     public static void main(String[] args) throws IOException {
 
 
 
-        out.flush();
-
     }
+
 
     static void print(int[] array){
         for(int j=0;j<array.length;j++){
@@ -136,6 +124,4 @@ public class F {
             System.out.println();
         }
     }
-
-
 }
