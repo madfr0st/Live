@@ -58,12 +58,31 @@ public class D {
 
     static BufferedReader inp = new BufferedReader(new InputStreamReader(System.in));
     static BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
+    static int modulo = (int) 1e9+7;
 
 
 
     public static void main(String[] args) throws IOException {
 
+        int t = Integer.parseInt(inp.readLine());
 
+        long[] dp = new long[(int)1e6*2+1];
+
+        dp[3] = 4;
+        dp[4] = 4;
+        for(int i=5;i<(int)1e6*2+1;i++){
+            dp[i] = 2*dp[i-2]+dp[i-1];
+            if(i%3==0){
+                dp[i]+=4;
+            }
+            dp[i]%=modulo;
+        }
+
+        while (t-->0){
+            int a = Integer.parseInt(inp.readLine());
+            out.write(dp[a]+"\n");
+        }
+        out.flush();
 
     }
 

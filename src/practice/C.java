@@ -74,10 +74,40 @@ public class C {
     static BufferedReader inp = new BufferedReader(new InputStreamReader(System.in));
     static BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
 
-
     public static void main(String[] args) throws IOException {
 
 
+        String[] s1 = inp.readLine().split(" ");
+        int r = Integer.parseInt(s1[0]);
+        int size = Integer.parseInt(s1[1]);
+        Pair<Integer,Pair<Integer,Integer>>[] pairs = new Pair[size+1];
+        pairs[0] = new Pair<>(0,new Pair<>(1,1));
+        for(int i=0;i<size;i++){
+            s1 = inp.readLine().split(" ");
+            pairs[i+1] = new Pair<>(Integer.parseInt(s1[0]),new Pair<>(Integer.parseInt(s1[1]),Integer.parseInt(s1[2])));
+        }
+
+        int[] dp = new int[size+1];
+        Arrays.fill(dp,Integer.MIN_VALUE);
+        dp[0] = 0;
+        int ans = 0;
+
+        for(int i=1;i<=size;i++){
+
+            int max = Integer.MIN_VALUE;
+
+            for(int j=i-1;j>=Math.max(0,i-2*r-1);j--){
+                int time = pairs[j].a+Math.abs(pairs[j].b.a-pairs[i].b.a)+Math.abs(pairs[j].b.b-pairs[i].b.b);
+                //System.out.println(time);
+                if(time<=pairs[i].a){
+                    max = Math.max(max,dp[j]+1);
+                }
+            }
+            dp[i] = max;
+            ans = Math.max(max,ans);
+        }
+        //print(dp);
+        out.write(ans+"\n");
 
         out.flush();
 

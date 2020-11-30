@@ -59,13 +59,13 @@ public class D {
     static BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
 
 
-
     public static void main(String[] args) throws IOException {
 
 
         out.flush();
 
     }
+
     static int gcd(int a, int b)
     {
         if (b == 0)

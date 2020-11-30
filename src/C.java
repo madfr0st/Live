@@ -68,14 +68,10 @@ public class C {
         }
     }
 
-
     static BufferedReader inp = new BufferedReader(new InputStreamReader(System.in));
     static BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
 
-
     public static void main(String[] args) throws IOException {
-
-
 
 
         out.flush();

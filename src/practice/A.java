@@ -78,6 +78,64 @@ public class A {
 
     public static void main(String[] args) throws IOException {
 
+        String[] s1 = inp.readLine().split("");
+        int ans = 0;
+        int left = 0;
+        int right = 0;
+
+        int sum = 0;
+
+        boolean[] visited = new boolean[s1.length];
+        int size = visited.length;
+
+        int first = -1;
+
+        for(int i=0;i<size;i++){
+            if(s1[i].equals("(")){
+                if(first==-1){
+                    first = i;
+                }
+                left++;
+            }
+            else {
+                right++;
+            }
+        }
+
+        if(left==right){
+            left = 0;
+            left = 0;
+            for(int i=first;i<size;i++){
+                if(s1[i].equals("(")){
+                    if(sum==0){
+                        left = i;
+                    }
+                    sum++;
+                }
+                else{
+                    sum--;
+                    if(sum==0){
+                        ans++;
+                    }
+                    if(sum<0){
+                        sum = 0;
+                        ans = 0;
+                    }
+                }
+            }
+
+            if(left>0){
+                ans++;
+            }
+
+
+            out.write(ans+"\n");
+
+
+        }
+        else{
+            out.write(0+"\n");
+        }
 
 
         out.flush();

@@ -1,36 +1,37 @@
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
-public class Main {
-    public static void main(String[] args) {
+public class Solution1 {
+    public int solve(String[] s){
 
-        int n = 500;
+        int size = s.length;
 
-        Set<Integer> set = new HashSet<>();
+        int ans = 0;
 
-        for(int i=1;i<n;i++){
+        int[] dp = new int[size];
 
-            String[] s1 = Integer.toString(i).split("");
+        Stack<Integer> stack = new Stack<>();
+        int count = 0;
 
-            int sum = 0;
-
-            for(int j=0;j<s1.length;j++){
-                sum+= Math.pow(Integer.parseInt(s1[j]),3);
+        for(int i=0;i<size;i++){
+            if(s[i].equals("(")){
+                stack.push(i);
             }
-
-            if(sum==i){
-                set.add(i);
+            else if(stack.size()>0){
+                int a = stack.pop();
+                dp[i] += dp[i-1]+2;
+                if(a>0) {
+                    dp[i] += dp[a - 1];
+                }
+                ans = Math.max(dp[i],ans);
             }
-
         }
 
-        System.out.println(set);
+//        print(s);
+//        print(dp);
 
+
+        return ans;
     }
-
-
     static void print(int[] array){
         for(int j=0;j<array.length;j++){
             System.out.print(array[j]+" ");
@@ -87,6 +88,5 @@ public class Main {
             System.out.println();
         }
     }
-
 
 }

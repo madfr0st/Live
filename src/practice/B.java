@@ -7,7 +7,7 @@ import java.util.*;
 public class B {
 
     static class Pair<U extends Comparable<U>, V extends Comparable<V>>
-            implements Comparable<Pair<U,V>>{
+            implements Comparable<Pair<U, V>> {
 
         public final U a;
         public final V b;
@@ -42,27 +42,31 @@ public class B {
 
         @Override
         public int compareTo(Pair<U, V> o) {
-            if(this.a.equals(o.a)){
+            if (this.a.equals(o.a)) {
                 return getV().compareTo(o.getV());
             }
             return getU().compareTo(o.getU());
         }
+
         private U getU() {
             return a;
         }
+
         private V getV() {
             return b;
         }
-        static void print(Pair[] pairs){
-            for(int i=0;i<pairs.length;i++){
-                System.out.print(pairs[i]+" ");
+
+        static void print(Pair[] pairs) {
+            for (int i = 0; i < pairs.length; i++) {
+                System.out.print(pairs[i] + " ");
             }
             System.out.println();
         }
-        static void print(Pair[][] pairs){
 
-            for(int i=0;i<pairs.length;i++){
-                for(int j=0;j<pairs[0].length;j++) {
+        static void print(Pair[][] pairs) {
+
+            for (int i = 0; i < pairs.length; i++) {
+                for (int j = 0; j < pairs[0].length; j++) {
                     System.out.print(pairs[i] + " ");
                 }
                 System.out.println();
@@ -75,127 +79,123 @@ public class B {
     static BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
 
 
+    static class Graph {
+
+        int vertices;
+        ArrayList<Integer>[] edge;
+
+        Graph(int vertices) {
+            this.vertices = vertices;
+            edge = new ArrayList[vertices + 1];
+            for (int i = 0; i < vertices + 1; i++) {
+                edge[i] = new ArrayList<>();
+            }
+        }
+
+        void addEdge(int a, int b) {
+            edge[a].add(b);
+            edge[b].add(a);
+        }
+
+        void solve() {
+
+        }
+
+        void DFS() {
+            boolean[] visited = new boolean[vertices + 1];
+
+        }
+
+        void DFSutil(int v, boolean[] visited) {
+            visited[v] = true;
+
+        }
+
+    }
+
+
+    static int[] color;
+
     public static void main(String[] args) throws IOException {
 
+        int vertices = Integer.parseInt(inp.readLine());
+        Graph graph = new Graph(vertices);
+        color = new int[vertices + 1];
 
+        String[] s1 = inp.readLine().split(" ");
+        for (int i = 0; i < vertices - 1; i++) {
+            int a = Integer.parseInt(s1[i]);
+            graph.addEdge(a, i + 1);
+        }
 
-        out.flush();
+        s1 = inp.readLine().split(" ");
+        for (int i = 0; i < vertices; i++) {
+            int a = Integer.parseInt(s1[i]);
+            color[i] = a;
+        }
+
+        graph.solve();
 
 
     }
-    static boolean check(int mid,int[] given,int size){
 
-        Set<Integer> set = new HashSet<>();
-        Map<Integer,Integer> map = new HashMap();
-
-        for(int i=mid;i<size;i++){
-            if(set.contains(given[i])){
-                map.put(given[i],map.get(given[i])+1);
-            }
-            else{
-                map.put(given[i],1);
-                set.add(given[i]);
-            }
-        }
-
-        boolean ans = false;
-
-        boolean one = true;
-        Iterator<Integer> iterator = set.iterator();
-        while (iterator.hasNext()){
-            if(map.get(iterator.next())>1){
-                one = false;
-            }
-        }
-        if(one){
-            ans = true;
-        }
-
-        for(int i=0;i<size-mid;i++){
-            int a = given[i+mid];
-            if(set.contains(a)){
-                if(map.get(a)>1){
-                    map.put(a,map.get(a)-1);
-                }
-                else{
-                    map.put(a,0);
-                    set.remove(a);
-                }
-            }
-
-            a = given[i];
-            if(set.contains(a)){
-                map.put(a,map.get(a)+1);
-            }
-            else{
-                set.add(a);
-                map.put(a,1);
-            }
-            iterator = set.iterator();
-            one = true;
-            while (iterator.hasNext()){
-                if(map.get(iterator.next())>1){
-                    one = false;
-                }
-            }
-            if(one){
-                ans = true;
-            }
-        }
-
-        return ans;
-    }
-
-    static void print(int[] array){
-        for(int j=0;j<array.length;j++){
-            System.out.print(array[j]+" ");
+    static void print(int[] array) {
+        for (int j = 0; j < array.length; j++) {
+            System.out.print(array[j] + " ");
         }
         System.out.println();
     }
-    static void print(int[][] array){
-        for(int i=0;i< array.length;i++) {
+
+    static void print(int[][] array) {
+        for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array[0].length; j++) {
                 System.out.print(array[i][j] + " ");
             }
             System.out.println();
         }
     }
-    static void print(boolean[] array){
-        for(int j=0;j<array.length;j++){
-            System.out.print(array[j]+" ");
+
+    static void print(boolean[] array) {
+        for (int j = 0; j < array.length; j++) {
+            System.out.print(array[j] + " ");
         }
         System.out.println();
     }
-    static void print(boolean[][] array){
-        for(int i=0;i< array.length;i++) {
+
+    static void print(boolean[][] array) {
+        for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array[0].length; j++) {
                 System.out.print(array[i][j] + " ");
             }
             System.out.println();
         }
     }
-    static void print(long[] array){
-        for(int j=0;j<array.length;j++){
-            System.out.print(array[j]+" ");
+
+    static void print(long[] array) {
+        for (int j = 0; j < array.length; j++) {
+            System.out.print(array[j] + " ");
         }
         System.out.println();
     }
-    static void print(long[][] array){
-        for(int i=0;i< array.length;i++) {
+
+    static void print(long[][] array) {
+        for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array[0].length; j++) {
                 System.out.print(array[i][j] + " ");
             }
             System.out.println();
         }
     }
-    static void print(String[] array){
-        for(int j=0;j<array.length;j++){
-            System.out.print(array[j]+" ");
+
+    static void print(String[] array) {
+        for (int j = 0; j < array.length; j++) {
+            System.out.print(array[j] + " ");
         }
         System.out.println();
     }
-    static void print(String[][] array){
-        for(int i=0;i< array.length;i++) {
+
+    static void print(String[][] array) {
+        for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array[0].length; j++) {
                 System.out.print(array[i][j] + " ");
             }

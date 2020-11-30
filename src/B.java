@@ -1,3 +1,5 @@
+
+
 import java.io.*;
 import java.util.*;
 
@@ -59,9 +61,7 @@ public class B {
     static BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
 
 
-
     public static void main(String[] args) throws IOException {
-
 
 
         out.flush();

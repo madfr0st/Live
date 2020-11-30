@@ -80,8 +80,6 @@ public class E {
 
     }
 
-
-
     private static void merge(int[] arr, int left, int middle, int right) {
 
         int size1 = middle - left + 1;
