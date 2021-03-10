@@ -8,7 +8,38 @@ public class E {
     static BufferedReader inp = new BufferedReader(new InputStreamReader(System.in));
     static BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
 
+    static class Graph{
+        int vertices;
+        ArrayList<Integer> edge[];
+        Graph(int vertices){
+            this.vertices = vertices;
+            edge = new ArrayList[vertices+1];
+            for(int i=0;i<=vertices;i++){
+                edge[i] = new ArrayList<>();
+            }
+        }
+
+        void addEdge(int a,int b){
+            edge[a].add(b);
+            edge[b].add(a);
+        }
+
+        void DFS(){
+
+        }
+
+
+
+    }
+
     public static void main(String[] args) throws IOException {
+
+        int n = Integer.parseInt(inp.readLine());
+        Graph graph = new Graph(n);
+        while (n-->0){
+            String[] s1 = inp.readLine().split(" ");
+            graph.addEdge(Integer.parseInt(s1[0]),Integer.parseInt(s1[1]));
+        }
 
 
 

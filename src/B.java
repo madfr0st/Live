@@ -63,18 +63,53 @@ public class B {
 
     public static void main(String[] args) throws IOException {
 
+        int t = Integer.parseInt(inp.readLine());
+        while (t-->0){
+            String[] s1 = inp.readLine().split(" ");
+            int q = Integer.parseInt(s1[0]);
+            int d = Integer.parseInt(s1[1]);
+            s1 = inp.readLine().split(" ");
 
-        out.flush();
+            for(int i=0;i<q;i++){
+                int a = Integer.parseInt(s1[i]);
+                int c = 11;
+                boolean ans = false;
+
+                if(a>10*d){
+                    ans = true;
+                }
+
+                while (c>0){
+                    a-=d;
+                    //System.out.println(a);
+                    c--;
+                    if(a%10==0 && a>=0){
+                        ans = true;
+                    }
+                    if(a==0){
+                        ans = true;
+                    }
+                }
+                if(ans){
+                    System.out.println("YES");
+                }
+                else{
+                    System.out.println("NO");
+                }
+            }
+
+
+        }
+
 
     }
-    static void decToBinary(int n,int[] coutt)
+    static void decToBinary(int n,int[][] coutt,int p)
     {
 
         for (int i = 31; i >= 0; i--) {
             int k = n >> i;
             if ((k & 1) > 0) {
-                coutt[i]++;
-                return;
+                coutt[p+1][i]++;
             }
         }
     }

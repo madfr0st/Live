@@ -62,6 +62,36 @@ public class D {
     public static void main(String[] args) throws IOException {
 
 
+        long mod = 1000000007;
+
+        int N = 5;
+        int M = 3;
+        int[] A = new int[]{4,4,4};
+        long[][] dp = new long[N+1][M+1];
+        long[][] dp1 = new long[M][1001];
+
+        for(int i=1;i<=M;i++){
+            dp[1][i] = 1;
+        }
+
+        for(int i=2;i<=N;i++){
+
+            long sum = 0;
+            for(int j=1;j<=M;j++){
+                sum+=dp[i-1][j];
+            }
+            for(int j=1;j<=M;j++){
+                dp[i][j] += sum-dp[i-1][j];
+            }
+
+            for(int j=2;j<=1001;j++){
+               // dp1[]
+            }
+
+
+        }
+
+
         out.flush();
 
     }

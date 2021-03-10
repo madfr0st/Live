@@ -78,7 +78,23 @@ public class A {
 
     public static void main(String[] args) throws IOException {
 
-        
+        int[] A = new int[5];
+        int[] count = new int[1001];
+
+        int max = 0;
+        int sum = 0;
+
+        for(int i=0;i<A.length;i++){
+            count[A[i]]+=A[i];
+            sum+=A[i];
+            if(max<count[A[i]]){
+                max = count[A[i]];
+            }
+        }
+
+        sum-=max;
+
+
 
         out.flush();
 

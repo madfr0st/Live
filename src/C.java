@@ -74,6 +74,34 @@ public class C {
     public static void main(String[] args) throws IOException {
 
 
+        int[][] A = new int[][]{{1,0,1}};
+        int[][] B = new int[][]{{2,1,0}};
+
+        int m = A[0].length;
+        int n = A.length;
+
+        long mod = 1000000007;
+
+        long[][] FR = new long[1001][1001];
+        long[][] FC = new long[1001][1001];
+        long[][] dp = new long[1001][1001];
+
+
+
+        for(int i=1;i<=n;i++)
+            for(int j=1;j<=m;j++)
+                FR[i][j]=FR[i][j-1]+A[i-1][j-1];
+
+        for(int i=1;i<=n;i++)
+            for(int j=1;j<=m;j++)
+                FC[i][j]=FC[i-1][j]+B[i-1][j-1];
+
+        for(int i=1;i<=n;i++)
+            for(int j=1;j<=m;j++)
+                dp[i][j]=Math.max(dp[i-1][j]+FR[i][j],dp[i][j-1]+FC[i][j]);
+
+        System.out.println(dp[n][m]);
+
         out.flush();
 
 

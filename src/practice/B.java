@@ -79,63 +79,26 @@ public class B {
     static BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
 
 
-    static class Graph {
-
-        int vertices;
-        ArrayList<Integer>[] edge;
-
-        Graph(int vertices) {
-            this.vertices = vertices;
-            edge = new ArrayList[vertices + 1];
-            for (int i = 0; i < vertices + 1; i++) {
-                edge[i] = new ArrayList<>();
-            }
-        }
-
-        void addEdge(int a, int b) {
-            edge[a].add(b);
-            edge[b].add(a);
-        }
-
-        void solve() {
-
-        }
-
-        void DFS() {
-            boolean[] visited = new boolean[vertices + 1];
-
-        }
-
-        void DFSutil(int v, boolean[] visited) {
-            visited[v] = true;
-
-        }
-
-    }
-
-
-    static int[] color;
-
     public static void main(String[] args) throws IOException {
 
-        int vertices = Integer.parseInt(inp.readLine());
-        Graph graph = new Graph(vertices);
-        color = new int[vertices + 1];
+        BufferedReader inp = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        String[] s1 = inp.readLine().split(" ");
-        for (int i = 0; i < vertices - 1; i++) {
-            int a = Integer.parseInt(s1[i]);
-            graph.addEdge(a, i + 1);
+        int t = Integer.parseInt(inp.readLine());
+        while (t-->0){
+            int a = Integer.parseInt(inp.readLine());
+
+            int q = a/2020;
+            int r = a%2020;
+
+            if(q<r){
+                System.out.println("NO");
+            }
+            else{
+                System.out.println("YES");
+            }
+
         }
-
-        s1 = inp.readLine().split(" ");
-        for (int i = 0; i < vertices; i++) {
-            int a = Integer.parseInt(s1[i]);
-            color[i] = a;
-        }
-
-        graph.solve();
-
 
     }
 
