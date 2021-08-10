@@ -1,28 +1,38 @@
 
-import netscape.javascript.JSObject;
 
-import java.io.IOException;
-import java.net.URI;
-import  java.net.http.*;
+import java.util.*;
 
-public class Test{
-    public static void main(String[] args) throws IOException{
+class Test{
+    static int ans = Integer.MAX_VALUE;
+    public static void main(long given){
 
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://api.covid19india.org/state_district_wise.json"))
-                .method("GET", HttpRequest.BodyPublishers.noBody())
-                .build();
-
-        try {
-            HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-
-            System.out.println(response.body());
-
-        }
-        catch (Exception e){
-            System.out.println(e);
-        }
 
 
     }
+
+    static int check(long n,int pre,int op){
+
+        int sum = 0;
+
+        String[] s1 = (n+"").split("");
+        String p = "";
+        for(int i=1;i<s1.length;i++){
+            p+=s1[i];
+        }
+
+        String k = (Integer.parseInt(s1[1])+1)+"";
+
+        String kk = "";
+        for(int i=0;i<s1.length-1;i++){
+            kk+=k;
+        }
+        long delta = Long.parseLong(kk);
+
+        int t1 = check(delta,pre,op+1);
+        //int t2 = check(norm,pre,op+1);
+
+
+        return sum;
+    }
+
 }
