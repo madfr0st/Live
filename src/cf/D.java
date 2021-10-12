@@ -1,14 +1,18 @@
+package cf;
+
 import java.io.*;
 import java.util.*;
 
 
-public class C {
+public class D {
+
+    static long modulo = 998244353l;
 
     static class Pair<U extends Comparable<U>, V extends Comparable<V>>
             implements Comparable<Pair<U,V>>{
 
-        public final U a;
-        public final V b;
+        public U a;
+        public V b;
 
         private Pair(U a, V b) {
             this.a = a;
@@ -51,65 +55,55 @@ public class C {
         private V getV() {
             return b;
         }
-        static void print(Pair[] pairs){
-            for(int i=0;i<pairs.length;i++){
-                System.out.print(pairs[i]+" ");
-            }
-            System.out.println();
-        }
-        static void print(Pair[][] pairs){
-
-            for(int i=0;i<pairs.length;i++){
-                for(int j=0;j<pairs[0].length;j++) {
-                    System.out.print(pairs[i] + " ");
-                }
-                System.out.println();
-            }
-        }
     }
 
     static BufferedReader inp = new BufferedReader(new InputStreamReader(System.in));
     static BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
 
+
     public static void main(String[] args) throws IOException {
 
 
-        int[][] A = new int[][]{{1,0,1}};
-        int[][] B = new int[][]{{2,1,0}};
-
-        int m = A[0].length;
-        int n = A.length;
-
         long mod = 1000000007;
 
-        long[][] FR = new long[1001][1001];
-        long[][] FC = new long[1001][1001];
-        long[][] dp = new long[1001][1001];
+        int N = 5;
+        int M = 3;
+        int[] A = new int[]{4,4,4};
+        long[][] dp = new long[N+1][M+1];
+        long[][] dp1 = new long[M][1001];
+
+        for(int i=1;i<=M;i++){
+            dp[1][i] = 1;
+        }
+
+        for(int i=2;i<=N;i++){
+
+            long sum = 0;
+            for(int j=1;j<=M;j++){
+                sum+=dp[i-1][j];
+            }
+            for(int j=1;j<=M;j++){
+                dp[i][j] += sum-dp[i-1][j];
+            }
+
+            for(int j=2;j<=1001;j++){
+               // dp1[]
+            }
 
 
+        }
 
-        for(int i=1;i<=n;i++)
-            for(int j=1;j<=m;j++)
-                FR[i][j]=FR[i][j-1]+A[i-1][j-1];
-
-        for(int i=1;i<=n;i++)
-            for(int j=1;j<=m;j++)
-                FC[i][j]=FC[i-1][j]+B[i-1][j-1];
-
-        for(int i=1;i<=n;i++)
-            for(int j=1;j<=m;j++)
-                dp[i][j]=Math.max(dp[i-1][j]+FR[i][j],dp[i][j-1]+FC[i][j]);
-
-        System.out.println(dp[n][m]);
 
         out.flush();
 
-
     }
 
-
-
-
+    static int gcd(int a, int b)
+    {
+        if (b == 0)
+            return a;
+        return gcd(b, a % b);
+    }
     static void print(int[] array){
         for(int j=0;j<array.length;j++){
             System.out.print(array[j]+" ");
@@ -167,4 +161,3 @@ public class C {
         }
     }
 }
-

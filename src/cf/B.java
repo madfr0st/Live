@@ -1,4 +1,4 @@
-
+package cf;
 
 import java.io.*;
 import java.util.*;
@@ -44,10 +44,10 @@ public class B {
 
         @Override
         public int compareTo(Pair<U, V> o) {
-            if(this.a.equals(o.a)){
-                return getV().compareTo(o.getV());
+            if(this.b.equals(o.b)){
+                return getU().compareTo(o.getU());
             }
-            return getU().compareTo(o.getU());
+            return getV().compareTo(o.getV());
         }
         private U getU() {
             return a;
@@ -59,50 +59,87 @@ public class B {
 
     static BufferedReader inp = new BufferedReader(new InputStreamReader(System.in));
     static BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
-
+    static List<Pair<Double,Double>> list;
 
     public static void main(String[] args) throws IOException {
 
-        int t = Integer.parseInt(inp.readLine());
-        while (t-->0){
-            String[] s1 = inp.readLine().split(" ");
-            int q = Integer.parseInt(s1[0]);
-            int d = Integer.parseInt(s1[1]);
-            s1 = inp.readLine().split(" ");
+        int size = Integer.parseInt(inp.readLine());
+        double[] ans = new double[size];
+        list = new ArrayList<>();
+        for(int i=0;i<size;i++){
+            String[] a  = inp.readLine().split(" ");
+            list.add(new Pair<>(Double.parseDouble(a[0]),Double.parseDouble(a[1])));
+        }
 
-            for(int i=0;i<q;i++){
-                int a = Integer.parseInt(s1[i]);
-                int c = 11;
-                boolean ans = false;
+        Collections.sort(list,Collections.reverseOrder());
+        //System.out.println(list);
 
-                if(a>10*d){
-                    ans = true;
-                }
+        double[] maxSum = new double[size];
 
-                while (c>0){
-                    a-=d;
-                    //System.out.println(a);
-                    c--;
-                    if(a%10==0 && a>=0){
-                        ans = true;
-                    }
-                    if(a==0){
-                        ans = true;
-                    }
-                }
-                if(ans){
-                    System.out.println("YES");
+        double sum = 0;
+
+        for(int i=0;i<size;i++){
+            sum+=list.get(i).b;
+            maxSum[i] = sum;
+        }
+
+        double[][] dp = new double[size][size+1];
+        boolean[][][] bool = new boolean[size+1][size+1][size+1];
+
+        bool[0][1][0] = true;
+        dp[0][1] = check(sum,bool[0][1]);
+
+
+        for(int i=1;i<size;i++){
+            for(int j=1;j<=size;j++){
+
+
+                bool[i-1][j-1][i] = true;
+
+                double a = check(sum,bool[i-1][j-1]);
+
+                double b = dp[i-1][j];
+
+                if(a>=b){
+                    bool[i][j] = bool[i-1][j-1];
+                    dp[i][j] = a;
                 }
                 else{
-                    System.out.println("NO");
+                    dp[i][j] = dp[i-1][j];
                 }
+
             }
-
-
         }
 
 
+        for(int i=0;i<size;i++){
+            System.out.print(dp[size-1][i+1]+" ");
+        }
+
+        //print(dp);
+
+
+
     }
+
+
+    static double check(double maxSum,boolean[] bool){
+        double capacitySum = 0;
+        double empty = 0;
+        double sum = 0;
+        for(int i=0;i<bool.length-1;i++){
+            if(bool[i]){
+                empty += list.get(i).a-list.get(i).b;
+                sum+=list.get(i).a;
+                capacitySum+=list.get(i).b;
+            }
+        }
+
+        double max = capacitySum+ Math.min(empty,(maxSum-capacitySum)/2);
+        //System.out.println(max+" "+Arrays.toString(bool));
+        return max;
+    }
+
     static void decToBinary(int n,int[][] coutt,int p)
     {
 
@@ -154,6 +191,20 @@ public class B {
         System.out.println();
     }
     static void print(long[][] array){
+        for(int i=0;i< array.length;i++) {
+            for (int j = 0; j < array[0].length; j++) {
+                System.out.print(array[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+    static void print(double[] array){
+        for(int j=0;j<array.length;j++){
+            System.out.print(array[j]+" ");
+        }
+        System.out.println();
+    }
+    static void print(double[][] array){
         for(int i=0;i< array.length;i++) {
             for (int j = 0; j < array[0].length; j++) {
                 System.out.print(array[i][j] + " ");

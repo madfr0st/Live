@@ -1,3 +1,5 @@
+package cf;
+
 import java.util.*;
 
 public class Solution1 {

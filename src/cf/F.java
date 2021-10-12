@@ -1,16 +1,16 @@
+package cf;
+
 import java.io.*;
 import java.util.*;
 
 
-public class D {
-
-    static long modulo = 998244353l;
+public class F {
 
     static class Pair<U extends Comparable<U>, V extends Comparable<V>>
             implements Comparable<Pair<U,V>>{
 
-        public U a;
-        public V b;
+        public final U a;
+        public final V b;
 
         private Pair(U a, V b) {
             this.a = a;
@@ -53,55 +53,35 @@ public class D {
         private V getV() {
             return b;
         }
+        static void print(Pair[] pairs){
+            for(int i=0;i<pairs.length;i++){
+                System.out.print(pairs[i]+" ");
+            }
+            System.out.println();
+        }
+        static void print(Pair[][] pairs){
+
+            for(int i=0;i<pairs.length;i++){
+                for(int j=0;j<pairs[0].length;j++) {
+                    System.out.print(pairs[i] + " ");
+                }
+                System.out.println();
+            }
+        }
     }
+
 
     static BufferedReader inp = new BufferedReader(new InputStreamReader(System.in));
     static BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
 
-
     public static void main(String[] args) throws IOException {
 
-
-        long mod = 1000000007;
-
-        int N = 5;
-        int M = 3;
-        int[] A = new int[]{4,4,4};
-        long[][] dp = new long[N+1][M+1];
-        long[][] dp1 = new long[M][1001];
-
-        for(int i=1;i<=M;i++){
-            dp[1][i] = 1;
-        }
-
-        for(int i=2;i<=N;i++){
-
-            long sum = 0;
-            for(int j=1;j<=M;j++){
-                sum+=dp[i-1][j];
-            }
-            for(int j=1;j<=M;j++){
-                dp[i][j] += sum-dp[i-1][j];
-            }
-
-            for(int j=2;j<=1001;j++){
-               // dp1[]
-            }
-
-
-        }
 
 
         out.flush();
 
     }
 
-    static int gcd(int a, int b)
-    {
-        if (b == 0)
-            return a;
-        return gcd(b, a % b);
-    }
     static void print(int[] array){
         for(int j=0;j<array.length;j++){
             System.out.print(array[j]+" ");
@@ -158,4 +138,6 @@ public class D {
             System.out.println();
         }
     }
+
+
 }
