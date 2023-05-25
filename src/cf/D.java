@@ -62,38 +62,35 @@ public class D {
 
 
     public static void main(String[] args) throws IOException {
+        int t = Integer.parseInt(inp.readLine());
+        while (t-->0) {
+            int k = Integer.parseInt(inp.readLine());
+            if(k==1){
+                out.write(1+"\n");
+            }
+            else if(k%2==1){
+                out.write(-1+"\n");
+            }
+            else{
+                int a = k;
+                out.write(k+" ");
+                boolean b = false;
+                for(int i=0;i<k-1;i++){
+                    if(b){
+                        b = false;
+                        out.write((k-1)-a+" ");
+                        a = (k-1)-a;
+                    }
+                    else{
+                        b = true;
+                        out.write((k+1)-a+" ");
+                        a = (k+1)-a;
+                    }
 
-
-        long mod = 1000000007;
-
-        int N = 5;
-        int M = 3;
-        int[] A = new int[]{4,4,4};
-        long[][] dp = new long[N+1][M+1];
-        long[][] dp1 = new long[M][1001];
-
-        for(int i=1;i<=M;i++){
-            dp[1][i] = 1;
+                }
+                out.write("\n");
+            }
         }
-
-        for(int i=2;i<=N;i++){
-
-            long sum = 0;
-            for(int j=1;j<=M;j++){
-                sum+=dp[i-1][j];
-            }
-            for(int j=1;j<=M;j++){
-                dp[i][j] += sum-dp[i-1][j];
-            }
-
-            for(int j=2;j<=1001;j++){
-               // dp1[]
-            }
-
-
-        }
-
-
         out.flush();
 
     }

@@ -79,44 +79,29 @@ public class A {
     static long mod = 1000000007;
 
     public static void main(String[] args) throws IOException {
+        int t = Integer.parseInt(inp.readLine());
 
-        int[] A = new int[5];
-        int[] count = new int[1001];
+        while (t-->0){
+            String[] s1 = inp.readLine().split(" ");
+            int size = Integer.parseInt(s1[0]);
+            int time = Integer.parseInt(s1[1]);
+            String[] s2 = inp.readLine().split(" ");
+            String[] s3 = inp.readLine().split(" ");
 
-        int max = 0;
-        int sum = 0;
-
-        for(int i=0;i<A.length;i++){
-            count[A[i]]+=A[i];
-            sum+=A[i];
-            if(max<count[A[i]]){
-                max = count[A[i]];
+            int max = 0;
+            int pos = -1;
+            for(int i=0;i<size;i++){
+                int a = Integer.parseInt(s2[i]);
+                int b = Integer.parseInt(s3[i]);
+                if(time>=a+i){
+                    max = Math.max(b,max);
+                    if(max==b){
+                        pos = i+1;
+                    }
+                }
             }
+            System.out.println(pos);
         }
-
-        sum-=max;
-
-
-
-        out.flush();
-
-    }
-
-    static long sum(int[] given, int l, int r) {
-        long s = 0;
-
-        while (l < r) {
-            s += given[l] * given[r];
-            l++;
-            r--;
-        }
-        return s;
-    }
-
-    static int gcd(int a, int b) {
-        if (b == 0)
-            return a;
-        return gcd(b, a % b);
     }
 
     static void print(int[] array) {

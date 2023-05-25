@@ -82,6 +82,45 @@ public class E {
 
     }
 
+    public static class Graph{
+        int vertices;
+        int[] maxCost;
+        ArrayList<ArrayList<Integer>> edges;
+        int cost;
+        Graph(int v,int cost){
+            this.vertices = v;
+            this.cost = cost;
+            edges = new ArrayList<>();
+            for(int i=0;i<vertices+1;i++){
+                edges.add(new ArrayList<>());
+                maxCost = new int[this.vertices+1];
+            }
+        }
+
+        void addEdge(int a, int b){
+           edges.get(a).add(b);
+           edges.get(b).add(a);
+        }
+
+        void DFS(int v){
+            boolean[] visited = new boolean[v+1];
+            DFSutil( v, visited);
+        }
+
+        private void DFSutil(int v, boolean[] visited) {
+            if(!visited[v]){
+                visited[v] = true;
+                Iterator<Integer> iterator = edges.get(v).iterator();
+                if(iterator.hasNext()){
+                    int a = iterator.next();
+                    if(!visited[a]){
+                        DFSutil(a,visited);
+                    }
+                }
+            }
+        }
+    }
+
     private static void merge(int[] arr, int left, int middle, int right) {
 
         int size1 = middle - left + 1;

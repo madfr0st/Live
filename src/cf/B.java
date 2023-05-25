@@ -63,63 +63,19 @@ public class B {
 
     public static void main(String[] args) throws IOException {
 
-        int size = Integer.parseInt(inp.readLine());
-        double[] ans = new double[size];
-        list = new ArrayList<>();
-        for(int i=0;i<size;i++){
-            String[] a  = inp.readLine().split(" ");
-            list.add(new Pair<>(Double.parseDouble(a[0]),Double.parseDouble(a[1])));
-        }
-
-        Collections.sort(list,Collections.reverseOrder());
-        //System.out.println(list);
-
-        double[] maxSum = new double[size];
-
-        double sum = 0;
-
-        for(int i=0;i<size;i++){
-            sum+=list.get(i).b;
-            maxSum[i] = sum;
-        }
-
-        double[][] dp = new double[size][size+1];
-        boolean[][][] bool = new boolean[size+1][size+1][size+1];
-
-        bool[0][1][0] = true;
-        dp[0][1] = check(sum,bool[0][1]);
-
-
-        for(int i=1;i<size;i++){
-            for(int j=1;j<=size;j++){
-
-
-                bool[i-1][j-1][i] = true;
-
-                double a = check(sum,bool[i-1][j-1]);
-
-                double b = dp[i-1][j];
-
-                if(a>=b){
-                    bool[i][j] = bool[i-1][j-1];
-                    dp[i][j] = a;
-                }
-                else{
-                    dp[i][j] = dp[i-1][j];
-                }
-
-            }
-        }
-
-
-        for(int i=0;i<size;i++){
-            System.out.print(dp[size-1][i+1]+" ");
-        }
-
-        //print(dp);
-
-
-
+       int t = Integer.parseInt(inp.readLine());
+       while (t-->0){
+           int size = Integer.parseInt(inp.readLine());
+           String[] strings = inp.readLine().split(" ");
+           long max = Long.MIN_VALUE;
+           long max1 = Long.MIN_VALUE;
+           long[] given = new long[size];
+           for(int i=0;i<strings.length;i++){
+            given[i]  = Long.parseLong(strings[i]);
+           }
+           Arrays.sort(given);
+           System.out.println(Math.max(given[0]*given[1],given[size-1]*given[size-2]));
+       }
     }
 
 
