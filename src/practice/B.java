@@ -80,26 +80,44 @@ public class B {
 
 
     public static void main(String[] args) throws IOException {
-
-        BufferedReader inp = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
-
         int t = Integer.parseInt(inp.readLine());
         while (t-->0){
-            int a = Integer.parseInt(inp.readLine());
+            int[] given = new int[53];
+            String[] s1 = inp.readLine().split(" ");
+            int n = Integer.parseInt(s1[0]);
+            int k = Integer.parseInt(s1[1]);
+            for(int i=0;i<n;i++){
+                String[] s2 = inp.readLine().split(" ");
+                int a = Integer.parseInt(s2[0]);
+                int b = Integer.parseInt(s2[1]);
+                if(k>=a && k<=b) {
+                    given[a]++;
+                    given[b + 1]--;
+                }
+            }
 
-            int q = a/2020;
-            int r = a%2020;
-
-            if(q<r){
-                System.out.println("NO");
+            int count = 0;
+            int max = 0;
+            for(int i=0;i<51;i++){
+                count += given[i];
+                given[i] = count;
+                max = Math.max(max,count);
+            }
+            //System.out.println(Arrays.toString(given));
+            count = 0;
+            for(int i=0;i<51;i++){
+               if(given[i]==max){
+                   count++;
+               }
+            }
+            if(count==1){
+                System.out.println("YES");
             }
             else{
-                System.out.println("YES");
+                System.out.println("NO");
             }
 
         }
-
     }
 
     static void print(int[] array) {

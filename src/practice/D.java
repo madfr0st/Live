@@ -64,25 +64,32 @@ public class D {
 
     public static void main(String[] args) throws IOException {
 
-        int t = Integer.parseInt(inp.readLine());
+         String[] s1 = inp.readLine().split(" ");
+         int size = Integer.parseInt(s1[0]);
+         int weight = Integer.parseInt(s1[1]);
 
-        long[] dp = new long[(int)1e6*2+1];
+         int[] givenWeight = new int[size];
+         int[] givenValue = new int[size];
 
-        dp[3] = 4;
-        dp[4] = 4;
-        for(int i=5;i<(int)1e6*2+1;i++){
-            dp[i] = 2*dp[i-2]+dp[i-1];
-            if(i%3==0){
-                dp[i]+=4;
-            }
-            dp[i]%=modulo;
-        }
+         for(int i=0;i<size;i++){
+             String[] s2 = inp.readLine().split(" ");
+             givenWeight[i] = Integer.parseInt(s2[0]);
+             givenValue[i] = Integer.parseInt(s2[1]);
+         }
 
-        while (t-->0){
-            int a = Integer.parseInt(inp.readLine());
-            out.write(dp[a]+"\n");
-        }
-        out.flush();
+         long[][] dp = new long[size+1][weight+1];
+
+         for(int i=1;i<=size;i++){
+             for(int j=1;j<=weight;j++){
+                 if((j-givenWeight[i-1])>=0){
+                     dp[i][j] = Math.max(dp[i-1][j-givenWeight[i-1]]+givenValue[i-1],dp[i][j]);
+                 }
+
+                     dp[i][j] = Math.max(dp[i-1][j],dp[i][j]);
+
+             }
+         }
+System.out.println(dp[size][weight]);
 
     }
 

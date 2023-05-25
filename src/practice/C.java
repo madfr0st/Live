@@ -1,13 +1,14 @@
 package practice;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.*;
 
 
 public class C {
 
     static class Pair<U extends Comparable<U>, V extends Comparable<V>>
-            implements Comparable<Pair<U,V>>{
+            implements Comparable<Pair<U,V>> {
 
         public final U a;
         public final V b;
@@ -42,27 +43,31 @@ public class C {
 
         @Override
         public int compareTo(Pair<U, V> o) {
-            if(this.a.equals(o.a)){
+            if (this.a.equals(o.a)) {
                 return getV().compareTo(o.getV());
             }
             return getU().compareTo(o.getU());
         }
+
         private U getU() {
             return a;
         }
+
         private V getV() {
             return b;
         }
-        static void print(Pair[] pairs){
-            for(int i=0;i<pairs.length;i++){
-                System.out.print(pairs[i]+" ");
+
+        static void print(Pair[] pairs) {
+            for (int i = 0; i < pairs.length; i++) {
+                System.out.print(pairs[i] + " ");
             }
             System.out.println();
         }
-        static void print(Pair[][] pairs){
 
-            for(int i=0;i<pairs.length;i++){
-                for(int j=0;j<pairs[0].length;j++) {
+        static void print(Pair[][] pairs) {
+
+            for (int i = 0; i < pairs.length; i++) {
+                for (int j = 0; j < pairs[0].length; j++) {
                     System.out.print(pairs[i] + " ");
                 }
                 System.out.println();
@@ -76,40 +81,74 @@ public class C {
 
     public static void main(String[] args) throws IOException {
 
+        int t = Integer.parseInt(inp.readLine());
+        while (t-->0){
+            int size = Integer.parseInt(inp.readLine());
+            long[] eachCupTea = new long[size+1];
+            long[] individualCapacitySum = new long[size];
+            long[] g3 = new long[size+1];
+            String[] s1 = inp.readLine().split(" ");
+            String[] s2 = inp.readLine().split(" ");
+            long[] ans = new long[size+1];
+            long[] carry = new long[size+1];
+            long sum = 0;
+            for(int i=0;i<size;i++){
+                eachCupTea[i] = Long.parseLong(s1[i]);
+                g3[i] = Long.parseLong(s2[i]);
+                sum += Long.parseLong(s2[i]);
+                individualCapacitySum[i] = sum;
 
-        String[] s1 = inp.readLine().split(" ");
-        int r = Integer.parseInt(s1[0]);
-        int size = Integer.parseInt(s1[1]);
-        Pair<Integer,Pair<Integer,Integer>>[] pairs = new Pair[size+1];
-        pairs[0] = new Pair<>(0,new Pair<>(1,1));
-        for(int i=0;i<size;i++){
-            s1 = inp.readLine().split(" ");
-            pairs[i+1] = new Pair<>(Integer.parseInt(s1[0]),new Pair<>(Integer.parseInt(s1[1]),Integer.parseInt(s1[2])));
-        }
-
-        int[] dp = new int[size+1];
-        Arrays.fill(dp,Integer.MIN_VALUE);
-        dp[0] = 0;
-        int ans = 0;
-
-        for(int i=1;i<=size;i++){
-
-            int max = Integer.MIN_VALUE;
-
-            for(int j=i-1;j>=Math.max(0,i-2*r-1);j--){
-                int time = pairs[j].a+Math.abs(pairs[j].b.a-pairs[i].b.a)+Math.abs(pairs[j].b.b-pairs[i].b.b);
-                //System.out.println(time);
-                if(time<=pairs[i].a){
-                    max = Math.max(max,dp[j]+1);
-                }
             }
-            dp[i] = max;
-            ans = Math.max(max,ans);
-        }
-        //print(dp);
-        out.write(ans+"\n");
+            sum = 0l;
+            for(int i=0;i<size;i++){
 
-        out.flush();
+                int j = Arrays.binarySearch(individualCapacitySum,i,size-1,eachCupTea[i]+sum);
+//                System.out.println(j);
+                j=-j;
+                j=j-2;
+                if(j>=i){
+//                    System.out.println(j+"--");
+                    if(j>=i){
+
+                            ans[i] += 1l;
+                            ans[j + 1] -= 1l;
+
+                        carry[j+1] += Math.min(eachCupTea[i]+sum-individualCapacitySum[j],g3[j+1]);
+//                        System.out.println(Arrays.toString(ans)+"--");
+//                        System.out.println(Arrays.toString(carry)+"----");
+                    }
+                    if(j==-1){
+                        carry[i] += Math.min(eachCupTea[i],g3[j+1]);
+                    }
+                }
+                else if(j+1==i){
+                    carry[j+1] += Math.min(eachCupTea[i],g3[j+1]);
+                }
+
+                sum+=g3[i];
+            }
+
+            long sum1 = 0l;
+
+//            System.out.println(Arrays.toString(ans));
+            for(int i=0;i<size;i++){
+                sum1+=ans[i];
+                ans[i] = sum1*g3[i]+carry[i];
+            }
+
+//            System.out.println(Arrays.toString(individualCapacitySum)+"  individualCapacitySum");
+//            System.out.println(Arrays.toString(eachCupTea)+"  eachCupTea");
+//            System.out.println(Arrays.toString(g3));
+//            System.out.println(Arrays.toString(carry));
+//            System.out.println(Arrays.toString(ans));
+
+            for(int i=0;i<size;i++){
+                System.out.print(ans[i]+" ");
+            }
+            System.out.println();
+
+
+        }
 
     }
     static void print(int[] array){

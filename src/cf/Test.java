@@ -4,9 +4,9 @@ import java.util.*;
 
 class Test{
     static int ans = Integer.MAX_VALUE;
-    public static void main(long given){
+    public static void main(String[] args){
 
-
+        System.out.println(179179175L * 179179175L + 179179175L * 10L + 26L);
 
     }
 
