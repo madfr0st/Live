@@ -65,6 +65,7 @@ public class BluePrint {
             int[] arrayInt = null;
             try{
                 str = bufferedReader.readLine().split(separator);
+                arrayInt = new int[str.length];
                 for(int i=0;i<str.length;i++){
                     arrayInt[i] = Integer.parseInt(str[i]);
                 }
@@ -80,6 +81,7 @@ public class BluePrint {
             long[] arrayLong = null;
             try{
                 str = bufferedReader.readLine().split(separator);
+                arrayLong = new long[str.length];
                 for(int i=0;i<str.length;i++){
                     arrayLong[i] = Long.parseLong(str[i]);
                 }

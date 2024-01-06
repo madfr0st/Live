@@ -1,19 +1,46 @@
 package cf._1914;
 
+
+
 import java.io.*;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 
 public class D {
 
     static long modulo = 998244353l;
-
+    static BufferedReader inp = new BufferedReader(new InputStreamReader(System.in));
+    static BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
     public static void main(String[] args) throws IOException {
 
 
+       MyScanner myScanner = new MyScanner();
+        int t = myScanner.nextInt();
+        while (t-->0) {
+            int size = myScanner.nextInt();
+            long[] a1 = myScanner.nextLineAsLongArray(" ");
+            long[] a2 = myScanner.nextLineAsLongArray(" ");
+            long[] a3 = myScanner.nextLineAsLongArray(" ");
+
+            Arrays.sort(a1);
+            Arrays.sort(a2);
+            Arrays.sort(a3);
+
+            long max = 0;
+            max = Math.max(max, a1[size - 1] + a2[size - 2] + a3[size - 3]);
+            max = Math.max(max, a1[size - 1] + a3[size - 2] + a2[size - 3]);
+            max = Math.max(max, a2[size - 1] + a1[size - 2] + a3[size - 3]);
+            max = Math.max(max, a2[size - 1] + a3[size - 2] + a2[size - 3]);
+            max = Math.max(max, a3[size - 1] + a1[size - 2] + a1[size - 3]);
+            max = Math.max(max, a3[size - 1] + a2[size - 2] + a1[size - 3]);
+
+            out.write(max + "\n");
 
 
-    }
+        }
+
+        }
 
 
 
@@ -81,6 +108,7 @@ public class D {
             long[] arrayLong = null;
             try{
                 str = bufferedReader.readLine().split(separator);
+                arrayLong = new long[str.length];
                 for(int i=0;i<str.length;i++){
                     arrayLong[i] = Long.parseLong(str[i]);
                 }
