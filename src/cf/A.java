@@ -79,29 +79,7 @@ public class A {
     static long mod = 1000000007;
 
     public static void main(String[] args) throws IOException {
-        int t = Integer.parseInt(inp.readLine());
 
-        while (t-->0){
-            String[] s1 = inp.readLine().split(" ");
-            int size = Integer.parseInt(s1[0]);
-            int time = Integer.parseInt(s1[1]);
-            String[] s2 = inp.readLine().split(" ");
-            String[] s3 = inp.readLine().split(" ");
-
-            int max = 0;
-            int pos = -1;
-            for(int i=0;i<size;i++){
-                int a = Integer.parseInt(s2[i]);
-                int b = Integer.parseInt(s3[i]);
-                if(time>=a+i){
-                    max = Math.max(b,max);
-                    if(max==b){
-                        pos = i+1;
-                    }
-                }
-            }
-            System.out.println(pos);
-        }
     }
 
     static void print(int[] array) {
@@ -167,6 +145,5 @@ public class A {
             System.out.println();
         }
     }
-
 
 }

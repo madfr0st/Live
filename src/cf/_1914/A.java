@@ -1,10 +1,9 @@
-package cf;
+package cf._1914;
 
 import java.io.*;
-import java.util.*;
 
 
-public class E {
+public class A {
 
     static class Pair<U extends Comparable<U>, V extends Comparable<V>>
             implements Comparable<Pair<U, V>> {
@@ -79,7 +78,24 @@ public class E {
     static long mod = 1000000007;
 
     public static void main(String[] args) throws IOException {
-
+        int t = Integer.parseInt(inp.readLine());
+        int[] count = new int[200];
+        while (t-->0){
+           int size = Integer.parseInt(inp.readLine());
+           String[] given  = inp.readLine().split("");
+          count = new int[200];
+          int ans = 0;
+           for(int i=0;i<size;i++){
+               int a = given[i].charAt(0);
+               count[a]++;
+           }
+            for(int i=0;i<200;i++){
+                if(count[i]>0 && count[i]>=(i-64)){
+                    ans++;
+                }
+            }
+           System.out.println(ans);
+        }
     }
 
     static void print(int[] array) {
@@ -145,5 +161,6 @@ public class E {
             System.out.println();
         }
     }
+
 
 }

@@ -1,13 +1,12 @@
-package cf;
+package cf._1914;
 
 import java.io.*;
-import java.util.*;
 
 
-public class E {
+public class F {
 
     static class Pair<U extends Comparable<U>, V extends Comparable<V>>
-            implements Comparable<Pair<U, V>> {
+            implements Comparable<Pair<U,V>>{
 
         public final U a;
         public final V b;
@@ -42,31 +41,27 @@ public class E {
 
         @Override
         public int compareTo(Pair<U, V> o) {
-            if (this.a.equals(o.a)) {
+            if(this.a.equals(o.a)){
                 return getV().compareTo(o.getV());
             }
             return getU().compareTo(o.getU());
         }
-
         private U getU() {
             return a;
         }
-
         private V getV() {
             return b;
         }
-
-        static void print(Pair[] pairs) {
-            for (int i = 0; i < pairs.length; i++) {
-                System.out.print(pairs[i] + " ");
+        static void print(Pair[] pairs){
+            for(int i=0;i<pairs.length;i++){
+                System.out.print(pairs[i]+" ");
             }
             System.out.println();
         }
+        static void print(Pair[][] pairs){
 
-        static void print(Pair[][] pairs) {
-
-            for (int i = 0; i < pairs.length; i++) {
-                for (int j = 0; j < pairs[0].length; j++) {
+            for(int i=0;i<pairs.length;i++){
+                for(int j=0;j<pairs[0].length;j++) {
                     System.out.print(pairs[i] + " ");
                 }
                 System.out.println();
@@ -74,23 +69,68 @@ public class E {
         }
     }
 
+
     static BufferedReader inp = new BufferedReader(new InputStreamReader(System.in));
     static BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
-    static long mod = 1000000007;
 
     public static void main(String[] args) throws IOException {
 
+
+
+        out.flush();
+
     }
 
-    static void print(int[] array) {
-        for (int j = 0; j < array.length; j++) {
-            System.out.print(array[j] + " ");
+    static void print(int[] array){
+        for(int j=0;j<array.length;j++){
+            System.out.print(array[j]+" ");
         }
         System.out.println();
     }
-
-    static void print(int[][] array) {
-        for (int i = 0; i < array.length; i++) {
+    static void print(int[][] array){
+        for(int i=0;i< array.length;i++) {
+            for (int j = 0; j < array[0].length; j++) {
+                System.out.print(array[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+    static void print(boolean[] array){
+        for(int j=0;j<array.length;j++){
+            System.out.print(array[j]+" ");
+        }
+        System.out.println();
+    }
+    static void print(boolean[][] array){
+        for(int i=0;i< array.length;i++) {
+            for (int j = 0; j < array[0].length; j++) {
+                System.out.print(array[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+    static void print(long[] array){
+        for(int j=0;j<array.length;j++){
+            System.out.print(array[j]+" ");
+        }
+        System.out.println();
+    }
+    static void print(long[][] array){
+        for(int i=0;i< array.length;i++) {
+            for (int j = 0; j < array[0].length; j++) {
+                System.out.print(array[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+    static void print(String[] array){
+        for(int j=0;j<array.length;j++){
+            System.out.print(array[j]+" ");
+        }
+        System.out.println();
+    }
+    static void print(String[][] array){
+        for(int i=0;i< array.length;i++) {
             for (int j = 0; j < array[0].length; j++) {
                 System.out.print(array[i][j] + " ");
             }
@@ -98,52 +138,5 @@ public class E {
         }
     }
 
-    static void print(boolean[] array) {
-        for (int j = 0; j < array.length; j++) {
-            System.out.print(array[j] + " ");
-        }
-        System.out.println();
-    }
-
-    static void print(boolean[][] array) {
-        for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array[0].length; j++) {
-                System.out.print(array[i][j] + " ");
-            }
-            System.out.println();
-        }
-    }
-
-    static void print(long[] array) {
-        for (int j = 0; j < array.length; j++) {
-            System.out.print(array[j] + " ");
-        }
-        System.out.println();
-    }
-
-    static void print(long[][] array) {
-        for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array[0].length; j++) {
-                System.out.print(array[i][j] + " ");
-            }
-            System.out.println();
-        }
-    }
-
-    static void print(String[] array) {
-        for (int j = 0; j < array.length; j++) {
-            System.out.print(array[j] + " ");
-        }
-        System.out.println();
-    }
-
-    static void print(String[][] array) {
-        for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array[0].length; j++) {
-                System.out.print(array[i][j] + " ");
-            }
-            System.out.println();
-        }
-    }
 
 }
