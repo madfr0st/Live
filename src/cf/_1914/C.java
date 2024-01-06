@@ -72,39 +72,39 @@ public class C {
     static BufferedReader inp = new BufferedReader(new InputStreamReader(System.in));
     static BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException{
 
+        int t = Integer.parseInt(inp.readLine());
+        while (t-->0){
+            String[] s1 = inp.readLine().split(" ");
+            int size = Integer.parseInt(s1[0]);
+            int k = Integer.parseInt(s1[1]);
+            int[] given1 = new int[size];
+            int[] given2 = new int[size];
+            String[] s2 = inp.readLine().split(" ");
+            String[] s3 = inp.readLine().split(" ");
+            Long max = 0l;
 
-        int[][] A = new int[][]{{1,0,1}};
-        int[][] B = new int[][]{{2,1,0}};
+            int localSum = 0;
+            int localMax = 0;
+            for (int i=0;i<size;i++){
+                given1[i] = Integer.parseInt(s2[i]);
+                given2[i] = Integer.parseInt(s3[i]);
+                localSum+=given1[i];
+                localMax = Math.max(localMax,given2[i]);
 
-        int m = A[0].length;
-        int n = A.length;
+                if(k>i){
+                    max = Math.max(max,localSum);
+                    max = Math.max(max,localSum+ (long) localMax *(k-i-1));
+                }
 
-        long mod = 1000000007;
+            }
 
-        long[][] FR = new long[1001][1001];
-        long[][] FC = new long[1001][1001];
-        long[][] dp = new long[1001][1001];
+            if(k>size)
+            max = Math.max(max,localSum+ (long) localMax *(k-size));
 
-
-
-        for(int i=1;i<=n;i++)
-            for(int j=1;j<=m;j++)
-                FR[i][j]=FR[i][j-1]+A[i-1][j-1];
-
-        for(int i=1;i<=n;i++)
-            for(int j=1;j<=m;j++)
-                FC[i][j]=FC[i-1][j]+B[i-1][j-1];
-
-        for(int i=1;i<=n;i++)
-            for(int j=1;j<=m;j++)
-                dp[i][j]=Math.max(dp[i-1][j]+FR[i][j],dp[i][j-1]+FC[i][j]);
-
-        System.out.println(dp[n][m]);
-
-        out.flush();
-
+            System.out.println(max);
+        }
 
     }
 

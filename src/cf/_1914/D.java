@@ -1,11 +1,97 @@
 package cf._1914;
 
 import java.io.*;
+import java.util.StringTokenizer;
 
 
 public class D {
 
     static long modulo = 998244353l;
+
+    public static void main(String[] args) throws IOException {
+
+
+
+
+    }
+
+
+
+    public static class MyScanner {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer stringTokenizer;
+        private String next() {
+            while (stringTokenizer == null || !stringTokenizer.hasMoreElements()) {
+                try {
+                    stringTokenizer = new StringTokenizer(bufferedReader.readLine());
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return stringTokenizer.nextToken();
+        }
+        int nextInt() {
+            return Integer.parseInt(next());
+        }
+        long nextLong() {
+            return Long.parseLong(next());
+        }
+        double nextDouble() {
+            return Double.parseDouble(next());
+        }
+        String nextLine() {
+            String str = "";
+            try{
+                str = bufferedReader.readLine();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            return str;
+        }
+        String[] nextLineAsStringArray(String separator) {
+            String[] str = null;
+            try{
+                str = bufferedReader.readLine().split(separator);
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            return str;
+        }
+
+        int[] nextLineAsIntArray(String separator) {
+            String[] str = null;
+            int[] arrayInt = null;
+            try{
+                str = bufferedReader.readLine().split(separator);
+                for(int i=0;i<str.length;i++){
+                    arrayInt[i] = Integer.parseInt(str[i]);
+                }
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            return arrayInt;
+        }
+
+        long[] nextLineAsLongArray(String separator) {
+            String[] str = null;
+            long[] arrayLong = null;
+            try{
+                str = bufferedReader.readLine().split(separator);
+                for(int i=0;i<str.length;i++){
+                    arrayLong[i] = Long.parseLong(str[i]);
+                }
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            return arrayLong;
+        }
+
+    }
 
     static class Pair<U extends Comparable<U>, V extends Comparable<V>>
             implements Comparable<Pair<U,V>>{
@@ -56,43 +142,8 @@ public class D {
         }
     }
 
-    static BufferedReader inp = new BufferedReader(new InputStreamReader(System.in));
-    static BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
 
 
-    public static void main(String[] args) throws IOException {
-        int t = Integer.parseInt(inp.readLine());
-        while (t-->0) {
-            int k = Integer.parseInt(inp.readLine());
-            if(k==1){
-                out.write(1+"\n");
-            }
-            else if(k%2==1){
-                out.write(-1+"\n");
-            }
-            else{
-                int a = k;
-                out.write(k+" ");
-                boolean b = false;
-                for(int i=0;i<k-1;i++){
-                    if(b){
-                        b = false;
-                        out.write((k-1)-a+" ");
-                        a = (k-1)-a;
-                    }
-                    else{
-                        b = true;
-                        out.write((k+1)-a+" ");
-                        a = (k+1)-a;
-                    }
-
-                }
-                out.write("\n");
-            }
-        }
-        out.flush();
-
-    }
 
     static int gcd(int a, int b)
     {

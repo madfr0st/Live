@@ -4,8 +4,93 @@ import java.io.*;
 import java.util.*;
 
 
-public class E {
+public class BluePrint {
 
+
+
+    static BufferedReader inp = new BufferedReader(new InputStreamReader(System.in));
+    static BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
+    static long mod = 1000000007;
+
+    public static void main(String[] args) throws IOException {
+
+    }
+
+    public static class MyScanner {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer stringTokenizer;
+        private String next() {
+            while (stringTokenizer == null || !stringTokenizer.hasMoreElements()) {
+                try {
+                    stringTokenizer = new StringTokenizer(bufferedReader.readLine());
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return stringTokenizer.nextToken();
+        }
+        int nextInt() {
+            return Integer.parseInt(next());
+        }
+        long nextLong() {
+            return Long.parseLong(next());
+        }
+        double nextDouble() {
+            return Double.parseDouble(next());
+        }
+        String nextLine() {
+            String str = "";
+            try{
+                str = bufferedReader.readLine();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            return str;
+        }
+        String[] nextLineAsStringArray(String separator) {
+            String[] str = null;
+            try{
+                str = bufferedReader.readLine().split(separator);
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            return str;
+        }
+
+        int[] nextLineAsIntArray(String separator) {
+            String[] str = null;
+            int[] arrayInt = null;
+            try{
+                str = bufferedReader.readLine().split(separator);
+                for(int i=0;i<str.length;i++){
+                    arrayInt[i] = Integer.parseInt(str[i]);
+                }
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            return arrayInt;
+        }
+
+        long[] nextLineAsLongArray(String separator) {
+            String[] str = null;
+            long[] arrayLong = null;
+            try{
+                str = bufferedReader.readLine().split(separator);
+                for(int i=0;i<str.length;i++){
+                    arrayLong[i] = Long.parseLong(str[i]);
+                }
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            return arrayLong;
+        }
+
+    }
     static class Pair<U extends Comparable<U>, V extends Comparable<V>>
             implements Comparable<Pair<U, V>> {
 
@@ -72,14 +157,6 @@ public class E {
                 System.out.println();
             }
         }
-    }
-
-    static BufferedReader inp = new BufferedReader(new InputStreamReader(System.in));
-    static BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
-    static long mod = 1000000007;
-
-    public static void main(String[] args) throws IOException {
-
     }
 
     static void print(int[] array) {

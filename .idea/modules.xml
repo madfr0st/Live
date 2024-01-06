@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Codeforces - Codeforces Round 916 Div 3/C. Quests/C_Quests.iml" filepath="$PROJECT_DIR$/Codeforces - Codeforces Round 916 Div 3/C. Quests/C_Quests.iml" />
       <module fileurl="file://$PROJECT_DIR$/Live.iml" filepath="$PROJECT_DIR$/Live.iml" />
     </modules>
   </component>
