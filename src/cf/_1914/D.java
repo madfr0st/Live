@@ -28,14 +28,10 @@ public class D {
             Arrays.sort(a3);
 
             long max = 0;
-            max = Math.max(max, a1[size - 1] + a2[size - 2] + a3[size - 3]);
-            max = Math.max(max, a1[size - 1] + a3[size - 2] + a2[size - 3]);
-            max = Math.max(max, a2[size - 1] + a1[size - 2] + a3[size - 3]);
-            max = Math.max(max, a2[size - 1] + a3[size - 2] + a2[size - 3]);
-            max = Math.max(max, a3[size - 1] + a1[size - 2] + a1[size - 3]);
-            max = Math.max(max, a3[size - 1] + a2[size - 2] + a1[size - 3]);
+
 
             out.write(max + "\n");
+            out.flush();
 
 
         }

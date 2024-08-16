@@ -1,64 +1,44 @@
-package leetcode;
+package cf._1933;
+
+
 
 import java.io.*;
-import java.util.*;
+import java.util.Arrays;
+import java.util.StringTokenizer;
 
 
-public class LC15 {
+public class D {
 
-
-
+    static long modulo = 998244353l;
     static BufferedReader inp = new BufferedReader(new InputStreamReader(System.in));
     static BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
-    static long mod = 1000000007;
-
     public static void main(String[] args) throws IOException {
 
-    int[] testCase = new int[]{-1,0,1,2,-1,-4};
 
-        System.out.println(threeSum(testCase));
-    }
-    public static List<List<Integer>> threeSum(int[] nums) {
+       MyScanner myScanner = new MyScanner();
+        int t = myScanner.nextInt();
+        while (t-->0) {
+            int size = myScanner.nextInt();
+            long[] a1 = myScanner.nextLineAsLongArray(" ");
+            long[] a2 = myScanner.nextLineAsLongArray(" ");
+            long[] a3 = myScanner.nextLineAsLongArray(" ");
 
-        Map<Integer, ArrayList<Integer>> map = new HashMap();
-        for(int i=0;i<nums.length;i++){
-            if(map.containsKey(nums[i])){
-//                ArrayList<Integer> list = map.get(nums[i]);
-//                list.add(i);
-//                map.put(nums[i],list);
-            }
-            else{
-                ArrayList<Integer> list = new ArrayList<>();
-                list.add(i);
-                map.put(nums[i],list);
-            }
+            Arrays.sort(a1);
+            Arrays.sort(a2);
+            Arrays.sort(a3);
+
+            long max = 0;
+
+
+            out.write(max + "\n");
+            out.flush();
+
+
         }
-        Set<List<Integer>> arrayListSet = new HashSet<>();
-        List<List<Integer>> ans = new ArrayList<>();
-        for(int i=0;i<nums.length;i++){
-            for(int j=i+1;j<nums.length;j++){
-                int sum = nums[i]+nums[j];
-                if(map.containsKey(-1*sum)){
-                    ArrayList<Integer> list = map.get(-1*sum);
-                    for (Integer integer : list) {
-                       if(integer!=i && integer!=j){
-                           List<Integer> list1 = new ArrayList<>();
-                           list1.add(nums[i]);
-                           list1.add(nums[j]);
-                           list1.add(-1*sum);
-                           Collections.sort(list1);
-                           if(!arrayListSet.contains(list1)){
-                               arrayListSet.add(list1);
-                               ans.add(list1);
-                           }
 
-                       }
-                    }
-                }
-            }
         }
-        return  ans;
-    }
+
+
 
     public static class MyScanner {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
@@ -109,7 +89,6 @@ public class LC15 {
             int[] arrayInt = null;
             try{
                 str = bufferedReader.readLine().split(separator);
-                arrayInt = new int[str.length];
                 for(int i=0;i<str.length;i++){
                     arrayInt[i] = Integer.parseInt(str[i]);
                 }
@@ -137,11 +116,12 @@ public class LC15 {
         }
 
     }
-    static class Pair<U extends Comparable<U>, V extends Comparable<V>>
-            implements Comparable<Pair<U, V>> {
 
-        public final U a;
-        public final V b;
+    static class Pair<U extends Comparable<U>, V extends Comparable<V>>
+            implements Comparable<Pair<U,V>>{
+
+        public U a;
+        public V b;
 
         private Pair(U a, V b) {
             this.a = a;
@@ -173,100 +153,82 @@ public class LC15 {
 
         @Override
         public int compareTo(Pair<U, V> o) {
-            if (this.a.equals(o.a)) {
+            if(this.a.equals(o.a)){
                 return getV().compareTo(o.getV());
             }
             return getU().compareTo(o.getU());
         }
-
         private U getU() {
             return a;
         }
-
         private V getV() {
             return b;
         }
-
-        static void print(Pair[] pairs) {
-            for (int i = 0; i < pairs.length; i++) {
-                System.out.print(pairs[i] + " ");
-            }
-            System.out.println();
-        }
-
-        static void print(Pair[][] pairs) {
-
-            for (int i = 0; i < pairs.length; i++) {
-                for (int j = 0; j < pairs[0].length; j++) {
-                    System.out.print(pairs[i] + " ");
-                }
-                System.out.println();
-            }
-        }
     }
 
-    static void print(int[] array) {
-        for (int j = 0; j < array.length; j++) {
-            System.out.print(array[j] + " ");
+
+
+
+    static int gcd(int a, int b)
+    {
+        if (b == 0)
+            return a;
+        return gcd(b, a % b);
+    }
+    static void print(int[] array){
+        for(int j=0;j<array.length;j++){
+            System.out.print(array[j]+" ");
         }
         System.out.println();
     }
-
-    static void print(int[][] array) {
-        for (int i = 0; i < array.length; i++) {
+    static void print(int[][] array){
+        for(int i=0;i< array.length;i++) {
             for (int j = 0; j < array[0].length; j++) {
                 System.out.print(array[i][j] + " ");
             }
             System.out.println();
         }
     }
-
-    static void print(boolean[] array) {
-        for (int j = 0; j < array.length; j++) {
-            System.out.print(array[j] + " ");
+    static void print(boolean[] array){
+        for(int j=0;j<array.length;j++){
+            System.out.print(array[j]+" ");
         }
         System.out.println();
     }
-
-    static void print(boolean[][] array) {
-        for (int i = 0; i < array.length; i++) {
+    static void print(boolean[][] array){
+        for(int i=0;i< array.length;i++) {
             for (int j = 0; j < array[0].length; j++) {
                 System.out.print(array[i][j] + " ");
             }
             System.out.println();
         }
     }
-
-    static void print(long[] array) {
-        for (int j = 0; j < array.length; j++) {
-            System.out.print(array[j] + " ");
+    static void print(long[] array){
+        for(int j=0;j<array.length;j++){
+            System.out.print(array[j]+" ");
         }
         System.out.println();
     }
-
-    static void print(long[][] array) {
-        for (int i = 0; i < array.length; i++) {
+    static void print(long[][] array){
+        for(int i=0;i< array.length;i++) {
             for (int j = 0; j < array[0].length; j++) {
                 System.out.print(array[i][j] + " ");
             }
             System.out.println();
         }
     }
-
-    static void print(String[] array) {
-        for (int j = 0; j < array.length; j++) {
-            System.out.print(array[j] + " ");
+    static void print(String[] array){
+        for(int j=0;j<array.length;j++){
+            System.out.print(array[j]+" ");
         }
         System.out.println();
     }
-
-    static void print(String[][] array) {
-        for (int i = 0; i < array.length; i++) {
+    static void print(String[][] array){
+        for(int i=0;i< array.length;i++) {
             for (int j = 0; j < array[0].length; j++) {
                 System.out.print(array[i][j] + " ");
             }
             System.out.println();
         }
     }
-
 }

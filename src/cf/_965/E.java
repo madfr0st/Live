@@ -1,10 +1,10 @@
-package leetcode;
+package cf._965;
 
 import java.io.*;
 import java.util.*;
 
 
-public class LC15 {
+public class E {
 
 
 
@@ -14,50 +14,74 @@ public class LC15 {
 
     public static void main(String[] args) throws IOException {
 
-    int[] testCase = new int[]{-1,0,1,2,-1,-4};
+        int t = Integer.parseInt(inp.readLine());
+        while (t-->0){
+            int n = 0;
+            int m = 0;
+            int k = 0;
+            String[] s1 = inp.readLine().split(" ");
+            n = Integer.parseInt(s1[0]);
+            m = Integer.parseInt(s1[1]);
+            k = Integer.parseInt(s1[2]);
 
-        System.out.println(threeSum(testCase));
-    }
-    public static List<List<Integer>> threeSum(int[] nums) {
-
-        Map<Integer, ArrayList<Integer>> map = new HashMap();
-        for(int i=0;i<nums.length;i++){
-            if(map.containsKey(nums[i])){
-//                ArrayList<Integer> list = map.get(nums[i]);
-//                list.add(i);
-//                map.put(nums[i],list);
+            int amount = Integer.parseInt(inp.readLine());
+            int[] given = new int[amount];
+            s1 = inp.readLine().split(" ");
+            for(int i=0;i<amount;i++){
+                given[i] = Integer.parseInt(s1[i]);
             }
-            else{
-                ArrayList<Integer> list = new ArrayList<>();
-                list.add(i);
-                map.put(nums[i],list);
-            }
-        }
-        Set<List<Integer>> arrayListSet = new HashSet<>();
-        List<List<Integer>> ans = new ArrayList<>();
-        for(int i=0;i<nums.length;i++){
-            for(int j=i+1;j<nums.length;j++){
-                int sum = nums[i]+nums[j];
-                if(map.containsKey(-1*sum)){
-                    ArrayList<Integer> list = map.get(-1*sum);
-                    for (Integer integer : list) {
-                       if(integer!=i && integer!=j){
-                           List<Integer> list1 = new ArrayList<>();
-                           list1.add(nums[i]);
-                           list1.add(nums[j]);
-                           list1.add(-1*sum);
-                           Collections.sort(list1);
-                           if(!arrayListSet.contains(list1)){
-                               arrayListSet.add(list1);
-                               ans.add(list1);
-                           }
 
-                       }
-                    }
+            int[] left = new int[n+1];
+            int[] down = new int[m+1];
+
+            int count = 0;
+            for(int i=0;i<=n;i++){
+                if(i+k<=n) {
+                    left[i]++;
+                }
+                if(i+k<=n) {
+                    left[i+k]--;
+                }
+                count+=left[i];
+                left[i] = count;
+            }
+
+            count = 0;
+
+            for(int i=0;i<=m;i++){
+                if(i+k<=m) {
+                    down[i]++;
+                }
+                if(i+k<=m) {
+                    down[i+k]--;
+                }
+                count+=down[i];
+                down[i] = count;
+            }
+
+
+
+            List<Long> list = new ArrayList<>();
+
+
+            for(int i=0;i<n;i++) {
+                for (int j = 0; j < m ; j++) {
+                  list.add((long) (left[i]*down[j]));
                 }
             }
+
+            Collections.sort(list);
+
+           long ans = 0;
+
+           Arrays.sort(given);
+           for(int i=0;i<amount;i++){
+               ans+=list.get(list.size()-1-i)*given[amount-i-1];
+           }
+
+            System.out.println(ans);
         }
-        return  ans;
+
     }
 
     public static class MyScanner {

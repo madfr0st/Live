@@ -1,10 +1,10 @@
-package leetcode;
+package cf._965;
 
 import java.io.*;
-import java.util.*;
+import java.util.StringTokenizer;
 
 
-public class LC15 {
+public class B {
 
 
 
@@ -14,50 +14,61 @@ public class LC15 {
 
     public static void main(String[] args) throws IOException {
 
-    int[] testCase = new int[]{-1,0,1,2,-1,-4};
-
-        System.out.println(threeSum(testCase));
-    }
-    public static List<List<Integer>> threeSum(int[] nums) {
-
-        Map<Integer, ArrayList<Integer>> map = new HashMap();
-        for(int i=0;i<nums.length;i++){
-            if(map.containsKey(nums[i])){
-//                ArrayList<Integer> list = map.get(nums[i]);
-//                list.add(i);
-//                map.put(nums[i],list);
-            }
-            else{
-                ArrayList<Integer> list = new ArrayList<>();
-                list.add(i);
-                map.put(nums[i],list);
-            }
+    int t = Integer.parseInt(inp.readLine());
+    while (t-->0){
+        int n = Integer.parseInt(inp.readLine());
+        String[] s = inp.readLine().split(" ");
+        int[] given  = new int[n];
+        for (int i=0;i<n;i++){
+            given[i] = Integer.parseInt(s[i]);
         }
-        Set<List<Integer>> arrayListSet = new HashSet<>();
-        List<List<Integer>> ans = new ArrayList<>();
-        for(int i=0;i<nums.length;i++){
-            for(int j=i+1;j<nums.length;j++){
-                int sum = nums[i]+nums[j];
-                if(map.containsKey(-1*sum)){
-                    ArrayList<Integer> list = map.get(-1*sum);
-                    for (Integer integer : list) {
-                       if(integer!=i && integer!=j){
-                           List<Integer> list1 = new ArrayList<>();
-                           list1.add(nums[i]);
-                           list1.add(nums[j]);
-                           list1.add(-1*sum);
-                           Collections.sort(list1);
-                           if(!arrayListSet.contains(list1)){
-                               arrayListSet.add(list1);
-                               ans.add(list1);
-                           }
 
-                       }
+        boolean[] check = new boolean[n];
+        check[given[0]-1] = true;
+        boolean ans = true;
+
+        if(n==1){
+            System.out.println("YES");
+        }
+        else {
+
+            for (int i = 1; i < n; i++) {
+                if (given[i] == 1) {
+                    if (!check[given[i]]) {
+                        ans = false;
+                        break;
+                    }
+                    else{
+                        check[given[i]-1] = true;
                     }
                 }
+
+               else  if (given[i] == n) {
+                    if (!check[given[i] - 2]) {
+                        ans = false;
+                        break;
+                    }else{
+                        check[given[i]-1] = true;
+                    }
+                }
+
+                else if( check[given[i]] || check[given[i] - 2] ){
+                    check[given[i]-1] = true;
+                }
+                else{
+                    ans = false;
+                    break;
+                }
+
+            }
+            if(ans){
+            System.out.println("YES");}
+            else {
+                System.out.println("NO");
             }
         }
-        return  ans;
+    }
+
     }
 
     public static class MyScanner {

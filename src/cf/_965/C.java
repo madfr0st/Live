@@ -1,10 +1,10 @@
-package leetcode;
+package cf._965;
 
 import java.io.*;
 import java.util.*;
 
 
-public class LC15 {
+public class C {
 
 
 
@@ -14,50 +14,66 @@ public class LC15 {
 
     public static void main(String[] args) throws IOException {
 
-    int[] testCase = new int[]{-1,0,1,2,-1,-4};
-
-        System.out.println(threeSum(testCase));
-    }
-    public static List<List<Integer>> threeSum(int[] nums) {
-
-        Map<Integer, ArrayList<Integer>> map = new HashMap();
-        for(int i=0;i<nums.length;i++){
-            if(map.containsKey(nums[i])){
-//                ArrayList<Integer> list = map.get(nums[i]);
-//                list.add(i);
-//                map.put(nums[i],list);
+        int t = Integer.parseInt(inp.readLine());
+        while (t-->0){
+            int size = Integer.parseInt(inp.readLine());
+            int[] givenArray = new int[size];
+            String[] s1 = inp.readLine().split(" ");
+            for(int i=0;i<size;i++){
+                givenArray[i] = Integer.parseInt(s1[i]);
             }
-            else{
-                ArrayList<Integer> list = new ArrayList<>();
-                list.add(i);
-                map.put(nums[i],list);
-            }
-        }
-        Set<List<Integer>> arrayListSet = new HashSet<>();
-        List<List<Integer>> ans = new ArrayList<>();
-        for(int i=0;i<nums.length;i++){
-            for(int j=i+1;j<nums.length;j++){
-                int sum = nums[i]+nums[j];
-                if(map.containsKey(-1*sum)){
-                    ArrayList<Integer> list = map.get(-1*sum);
-                    for (Integer integer : list) {
-                       if(integer!=i && integer!=j){
-                           List<Integer> list1 = new ArrayList<>();
-                           list1.add(nums[i]);
-                           list1.add(nums[j]);
-                           list1.add(-1*sum);
-                           Collections.sort(list1);
-                           if(!arrayListSet.contains(list1)){
-                               arrayListSet.add(list1);
-                               ans.add(list1);
-                           }
 
-                       }
-                    }
+            int k = Integer.parseInt(inp.readLine());
+            while (k-->0){
+                s1 = inp.readLine().split("");
+                if(s1.length!=size){
+                    System.out.println("NO");
                 }
+                else{
+                    Map<String,Integer> map = new HashMap<>();
+                    Set<Integer> set = new HashSet<>();
+                    boolean ans = true;
+                    int[] test = new int[size];
+                    for(int i=0;i<size;i++){
+                        if(map.containsKey(s1[i])){
+                            if(givenArray[i]==map.get(s1[i])) {
+                                test[i] = map.get(s1[i]);
+                            }else{
+                                ans = false;
+                                break;
+                            }
+                        }
+                        else{
+                            if(!set.contains(givenArray[i])){
+                                set.add(givenArray[i]);
+                                map.put(s1[i],givenArray[i]);
+                                test[i] = givenArray[i];
+                            }
+                            else {
+                                ans = false;
+                                break;
+                            }
+                        }
+                    }
+
+                    for(int i=0;i<size;i++){
+                        if(givenArray[i]!=test[i]){
+                            ans = false;
+                        }
+                    }
+
+                    if(ans){
+                        System.out.println("YES");
+                    }
+                    else{
+                        System.out.println("NO");
+                    }
+
+                }
+
             }
+
         }
-        return  ans;
     }
 
     public static class MyScanner {
