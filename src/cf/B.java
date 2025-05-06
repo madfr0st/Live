@@ -63,19 +63,43 @@ public class B {
 
     public static void main(String[] args) throws IOException {
 
-       int t = Integer.parseInt(inp.readLine());
-       while (t-->0){
+        int t = Integer.parseInt(inp.readLine());
+        while (t-->0){
            int size = Integer.parseInt(inp.readLine());
-           String[] strings = inp.readLine().split(" ");
-           long max = Long.MIN_VALUE;
-           long max1 = Long.MIN_VALUE;
-           long[] given = new long[size];
-           for(int i=0;i<strings.length;i++){
-            given[i]  = Long.parseLong(strings[i]);
+           int[] given = new int[size];
+           int sum = 0;
+           int sum2 = 0;
+           boolean once = false;
+           boolean ans = true;
+           String[] s2 = inp.readLine().split(" " );
+            String[] s3 = inp.readLine().split(" " );
+           for(int i=0;i<size;i++){
+               int a = Integer.parseInt(s2[i]);
+               int b = Integer.parseInt(s3[i]);
+               if(a<b && !once){
+                   once = true;
+               }
+               else {
+                   ans = false;
+                   break;
+               }
+
+               sum += a;
+               sum2 +=b;
+
            }
-           Arrays.sort(given);
-           System.out.println(Math.max(given[0]*given[1],given[size-1]*given[size-2]));
-       }
+           if(sum<sum2){
+               ans = false;
+           }
+           if(ans){
+               System.out.println("YES");
+           }
+           else {
+               System.out.println("NO");
+           }
+        }
+
+
     }
 
 
