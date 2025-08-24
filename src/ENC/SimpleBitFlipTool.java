@@ -22,35 +22,35 @@ public class SimpleBitFlipTool {
 
         System.out.println("\n=== Bit Flipping Examples ===");
 
-        // Example 1: Flip single bit
-        byte[] modified1 = flipBitInCiphertext(encrypted, 0, 0);  // Flip first bit of first byte
-        System.out.println("1. Flipped bit 0 of byte 0:");
-        System.out.println("   Modified encrypted: " + bytesToHex(modified1));
-
-        // Example 2: Flip multiple bits
-        byte[] modified2 = Arrays.copyOf(encrypted, encrypted.length);
-        modified2 = flipBitInCiphertext(modified2, 1, 3);  // Flip bit 3 of byte 1
-        modified2 = flipBitInCiphertext(modified2, 5, 7);  // Flip bit 7 of byte 5
-        System.out.println("2. Flipped multiple bits:");
-        System.out.println("   Modified encrypted: " + bytesToHex(modified2));
+//        // Example 1: Flip single bit
+//        byte[] modified1 = flipBitInCiphertext(encrypted, 0, 0);  // Flip first bit of first byte
+//        System.out.println("1. Flipped bit 0 of byte 0:");
+//        System.out.println("   Modified encrypted: " + bytesToHex(modified1));
+//
+//        // Example 2: Flip multiple bits
+//        byte[] modified2 = Arrays.copyOf(encrypted, encrypted.length);
+//        modified2 = flipBitInCiphertext(modified2, 1, 3);  // Flip bit 3 of byte 1
+//        modified2 = flipBitInCiphertext(modified2, 5, 7);  // Flip bit 7 of byte 5
+//        System.out.println("2. Flipped multiple bits:");
+//        System.out.println("   Modified encrypted: " + bytesToHex(modified2));
 
         // Example 3: Target specific plaintext change (requires knowing original)
-        String targetText = "Jello World 1234";  // Change 'H' to 'J'
+        String targetText = "suman suman suma";  // Change 'H' to 'J'
         byte[] modified3 = createTargetedFlip(originalText, targetText, iv, encrypted);
         if (modified3 != null) {
             System.out.println("3. Targeted flip to change 'Hello' to 'Jello':");
             System.out.println("   Modified encrypted: " + bytesToHex(modified3));
         }
 
-        // Example 4: Byte-level modification
-        byte[] modified4 = modifyByteInCiphertext(encrypted, 2, (byte)0xFF);
-        System.out.println("4. Set byte 2 to 0xFF:");
-        System.out.println("   Modified encrypted: " + bytesToHex(modified4));
-
-        // Show what each modification would affect in plaintext
-        System.out.println("\n=== Understanding the Effects ===");
-        explainBitFlipEffect(originalText, 0, 0);
-        explainBitFlipEffect(originalText, 1, 3);
+//        // Example 4: Byte-level modification
+//        byte[] modified4 = modifyByteInCiphertext(encrypted, 2, (byte)0xFF);
+//        System.out.println("4. Set byte 2 to 0xFF:");
+//        System.out.println("   Modified encrypted: " + bytesToHex(modified4));
+//
+//        // Show what each modification would affect in plaintext
+//        System.out.println("\n=== Understanding the Effects ===");
+//        explainBitFlipEffect(originalText, 0, 0);
+//        explainBitFlipEffect(originalText, 1, 3);
     }
 
     /**
