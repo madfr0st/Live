@@ -1,0 +1,136 @@
+package leetcode;
+
+import javax.imageio.IIOException;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Queue;
+
+public class LC124 {
+
+    static int max = -9999999;
+    static BufferedReader inp = new BufferedReader(new InputStreamReader(System.in));
+    static BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
+    public static void main(String[] args) throws IIOException {
+        Integer[] arr = {9,6,-3,null,null,-6,2,null,null,2,null,-6,-6,-6};
+        TreeNode root = buildTree(arr);
+        System.out.println("Inorder traversal of built tree:");
+        printLevelOrder(root);
+        maxPathSum(root,0);
+        System.out.println(max);  // Expected: 9 -10 15 20 7
+
+
+    }
+    public static int maxPathSum(TreeNode root, int depth) {
+        if(root==null){
+            return -9999999;
+        }
+
+        int l =  maxPathSum(root.left,1);
+        int r =  maxPathSum(root.right,1);
+        System.out.println(root.val+"->  "+l+" "+r);
+        max = Math.max(l+r+root.val,max);
+
+        max = Math.max(max,root.val);
+        max = Math.max(max,l+root.val);
+        max = Math.max(max,r+root.val);
+        int cur = Math.max(l+root.val,r+root.val);
+        cur = Math.max(cur,root.val);
+        return Math.max(cur,0);
+    }
+
+    public static int maxPathSumUtil(TreeNode root){
+
+        return 0;
+    }
+
+
+
+    public static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+        TreeNode() {}
+        TreeNode(int val) { this.val = val; }
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+
+    public static void printInOrder(TreeNode root) {
+        if (root == null) {
+            return; // base case
+        }
+        // Left subtree
+
+        // Visit root
+        System.out.print(root.val + " ");
+
+        printInOrder(root.left);
+
+        // Right subtree
+        printInOrder(root.right);
+    }
+
+
+    public static void printLevelOrder(TreeNode root) {
+        if (root == null) {
+            System.out.println("null");
+            return;
+        }
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while (!queue.isEmpty()) {
+            TreeNode current = queue.poll();
+
+            if (current == null) {
+                System.out.print("null ");
+                continue; // don’t enqueue children of null
+            }
+
+            System.out.print(current.val + " ");
+            queue.offer(current.left);   // may be null
+            queue.offer(current.right);  // may be null
+        }
+    }
+    public static TreeNode buildTree(Integer[] levelOrder) {
+        if (levelOrder == null || levelOrder.length == 0 || levelOrder[0] == null) {
+            return null;
+        }
+
+        TreeNode root = new TreeNode(levelOrder[0]);
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+
+        int i = 1;
+        while (!queue.isEmpty() && i < levelOrder.length) {
+            TreeNode current = queue.poll();
+
+            // Left child
+            if (i < levelOrder.length && levelOrder[i] != null) {
+                current.left = new TreeNode(levelOrder[i]);
+                queue.add(current.left);
+            }
+            i++;
+
+            // Right child
+            if (i < levelOrder.length && levelOrder[i] != null) {
+                current.right = new TreeNode(levelOrder[i]);
+                queue.add(current.right);
+            }
+            i++;
+        }
+
+        return root;
+    }
+}
+
+
