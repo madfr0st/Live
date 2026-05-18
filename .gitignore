@@ -1,3 +1,16 @@
-# Project exclude paths
+# Build output
 /out/
+*.class
+
+# IDE
+.idea/
+.claude/
+*.iml.bak
+
+# Node
+node_modules/
+
+# OS
 Icon
+.DS_Store
+Thumbs.db
